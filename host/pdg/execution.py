@@ -57,6 +57,12 @@ class Mission:
     def run(self, plan, vehicle):
         from .ground_health import validate_controller_trial_mode
         controller_trial=validate_controller_trial_mode(self.c,hover=False)
+        ignore_heading=self.c.get('ignore_start_heading',False)
+        if not isinstance(ignore_heading,bool) or (ignore_heading and not controller_trial):
+            raise ValueError('Ignoring start heading requires explicit calibrated controller trial mode')
+        tilt_limit=float(self.c.get('max_start_tilt_deg',10.))
+        if not math.isfinite(tilt_limit) or not 0<tilt_limit<=30:
+            raise ValueError('Invalid descent-start tilt limit')
         trajectory = Trajectory(plan, vehicle)
         airborne = False
         landing_requested=False
@@ -93,16 +99,22 @@ class Mission:
                 self.t.go_to(plan.states[0,:3],plan.states[0,6:10],staging_duration)
                 self.monitored_wait(staging_duration+self.c['settle_duration'])
             o = self.check_observation()
-            angle = 2*np.arccos(np.clip(abs(np.dot(o.quaternion_wxyz,plan.states[0,6:10])),0,1))
+            from .ground_health import start_attitude_errors
+            angle,tilt_error=start_attitude_errors(o.quaternion_wxyz,plan.states[0,6:10])
+            self.t.record({'event':'start_attitude_check','attitude_error_deg':angle,
+                           'tilt_error_deg':tilt_error,'heading_check_disabled':ignore_heading,
+                           'tilt_limit_deg':tilt_limit})
+            attitude_bad=tilt_error>tilt_limit if ignore_heading else angle>10.
             if (np.linalg.norm(o.position-plan.states[0,:3]) > self.c['max_start_error']
-                    or np.linalg.norm(o.velocity-plan.states[0,3:6]) > 0.15 or angle > np.deg2rad(10)):
+                    or np.linalg.norm(o.velocity-plan.states[0,3:6]) > 0.15 or attitude_bad):
                 self.t.record({'event':'start_state_mismatch',
                                'phase':'staging' if staging else 'takeoff',
                                'position':o.position.tolist(),
                                'velocity':o.velocity.tolist(),
                                'quaternion_wxyz':o.quaternion_wxyz.tolist(),
                                'position_error_m':float(np.linalg.norm(o.position-plan.states[0,:3])),
-                               'attitude_error_deg':float(np.rad2deg(angle))})
+                               'attitude_error_deg':angle,'tilt_error_deg':tilt_error,
+                               'heading_check_disabled':ignore_heading})
                 raise RuntimeError(('Staging' if staging else 'Takeoff')+' did not reach planned initial state')
             self.t.record({'event': 'descent'})
             start, tick = self.t.now(), 0

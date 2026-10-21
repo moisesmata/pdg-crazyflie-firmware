@@ -149,3 +149,53 @@ def test_ros_message_units_and_quaternion_order():
     fill_full_state(msg,s,123,'world')
     assert msg.pose.orientation.w == .5 and msg.twist.angular.z == .3
     assert msg.acc.z == 9 and msg.header.frame_id == 'world'
+
+
+def test_direct_takeoff_from_offset_start_never_sends_sideways_stage():
+    cfg,p=fixture();cfg.update(stage_to_start=False,ground_start_xy=[0.,0.])
+    p.states[0,0]=-1.
+    t=FakeTransport();t.position[0]=-1.
+    Mission(t,cfg).run(p,Quadrotor())
+    assert ('stage',) not in t.events
+    assert ('descent',) in t.events
+    assert ('landed_pose_proxy',) in t.events
+
+
+def test_direct_offset_start_rejects_drone_still_at_old_origin_pad():
+    cfg,p=fixture();cfg.update(stage_to_start=False,ground_start_xy=[0.,0.])
+    p.states[0,0]=-1.
+    t=FakeTransport()
+    with pytest.raises(RuntimeError,match='horizontal position'):
+        Mission(t,cfg).run(p,Quadrotor())
+    assert ('arm',True) not in t.events
+
+
+@pytest.mark.parametrize('tilted,allowed',[(False,True),(True,False)])
+def test_trial_can_ignore_heading_but_keeps_start_tilt_check(tilted,allowed):
+    from dataclasses import replace
+    cfg,p=fixture();cfg.update(operator_controller_trial=True,vicon_only=True,
+        expected_tracker_parameters={'ctrlMel.mass':.044},ignore_start_heading=True,max_start_tilt_deg=10.)
+    class OffsetAttitude(FakeTransport):
+        def observe(self):
+            o=super().observe()
+            if self.position[2]>.1:
+                a=np.deg2rad(20)/2
+                q=np.array([np.cos(a),np.sin(a),0.,0.]) if tilted else np.array([np.cos(a),0.,0.,np.sin(a)])
+                return replace(o,quaternion_wxyz=q)
+            return o
+    t=OffsetAttitude()
+    if allowed:
+        Mission(t,cfg).run(p,Quadrotor())
+        assert ('descent',) in t.events
+        assert ('landed_pose_proxy',) in t.events
+    else:
+        with pytest.raises(RuntimeError,match='initial state'):Mission(t,cfg).run(p,Quadrotor())
+        assert ('descent',) not in t.events
+        assert ('land',) in t.events
+
+
+def test_heading_gate_override_cannot_silently_enable_outside_trial():
+    cfg,p=fixture();cfg['ignore_start_heading']=True;t=FakeTransport()
+    with pytest.raises(ValueError,match='explicit calibrated controller trial'):
+        Mission(t,cfg).run(p,Quadrotor())
+    assert ('arm',True) not in t.events

@@ -1,0 +1,35 @@
+{
+  "hardware": "CF 2.1+ brushed, five markers, Flow deck removed",
+  "estimation": "Kalman + Vicon full pose + IMU",
+  "controller": "Mellinger OOT, auto 0 / identity 6, capability cap disabled",
+  "tracker_mass_kg": 0.044,
+  "tracker_massThrust": 135456.8069962816,
+  "planning_mass_kg": 0.048,
+  "physical_mass_measured": false,
+  "runtime_profile": "--controller-trial; yaw start gate disabled, 10-degree body-Z tilt check, 12 cm start tolerance",
+  "source_run": "output/pdg-2m-controller-repeat-20261021T202946Z",
+  "raw_log": "mission.jsonl (complete raw telemetry included)",
+  "archived_at_utc": "2026-10-21T20:47:32.628114+00:00",
+  "archive_git_head": "acc663362727e793271ec4ac6c93d78e75c90d3d",
+  "source_snapshot_sha256_at_archive": {
+    "host/pdg/execution.py": "48f5b50e3b577ee753800066d26cfd557ca3ebd48ac08ffd4526d79234b98650",
+    "host/pdg/ground_health.py": "63fc91200349c958e4041666f5bcc1f447adaee1ecaac1accf8660708f4f4584",
+    "host/pdg/ros_mission.py": "5df0c0f533cf07ec6cadba42435b0700bd24cc1adff8ebd298674aa893ed49a7",
+    "host/pdg/trajectory.py": "1a1daae20a5efdfd5a1b70a32c7290f33e42a9a0a79e09667fb8796bef50bded",
+    "host/pdg/model.py": "97eacd89576a356f6acb9e3d5a5eb1115f383475767ff1c33484cdc21142068b",
+    "apps/pdg_controller/src/pdg_controller.c": "5fb55f03fa9564633d713ab2573d41ea87afda41441bae70aff83cf19114e342",
+    "config/crazyflies.yaml": "00ecd52b5194d82179c4ec5f51039e78e03c7aeb6c6675e6bb5ef5db80163877",
+    "config/body-frame.yaml": "e13fc4529f6307af5cd40a8212eedfd7f14ed9ef9508d04e1f5b782b4fede924",
+    "config/tracker-frame.yaml": "39dbce1619460e53bc82275ec0afc6550b003ba83d2a94576c58c194e2931d6d"
+  },
+  "files_sha256": {
+    "result.json": "b9894caba6d92616cfb0a49a99a4d91bbab96bd2961fc908a27951a0d16fe2be",
+    "execution.json": "1538dbcdec4537fefdd65de6e704b14bc7e4f8cda47e9ee5a3731c7e1f0fcc79",
+    "plan.json": "91ce8b086a8e7fc6eddc910a0e55cade92c3ec05e67ef1c9f7e6b1fb6f6a0ef9",
+    "mission.jsonl": "edc3c03f8af1bc398f8ff71d5a3f0de0a5c7586174b8727124b0deda6504867c",
+    "config.yaml": "6f61e57d14077d21530915564c5be587b2fdf4b7e61cf1688a4db6934e2cbca6"
+  },
+  "physical_success_confirmed": false,
+  "success_scope": "Normal landing/disarm confirmed by telemetry; no separate operator report.",
+  "source_provenance_note": "Source hashes captured at archive time, not independently during flight; working tree contains uncommitted changes."
+}

@@ -55,6 +55,7 @@ def run_mission(plan, vehicle, config, directory, *, hover=False):
             self.actuator_sub = self.node.create_subscription(LogDataGeneric, f"/{config['robot']}/actuators", self.on_actuators, 10)
             self.yaw_sub = self.node.create_subscription(LogDataGeneric, f"/{config['robot']}/yaw_control", self.on_yaw_control, 10)
             self.vertical_sub = self.node.create_subscription(LogDataGeneric, f"/{config['robot']}/vertical_control", self.on_vertical_control, 10)
+            self.mellinger_sub = self.node.create_subscription(LogDataGeneric, f"/{config['robot']}/mellinger_control", self.on_mellinger_control, 10)
             self.mocap_rx_position_sub = self.node.create_subscription(LogDataGeneric, f"/{config['robot']}/mocap_rx_position", self.on_mocap_rx_position, 10)
             self.mocap_rx_orientation_sub = self.node.create_subscription(LogDataGeneric, f"/{config['robot']}/mocap_rx_orientation", self.on_mocap_rx_orientation, 10)
             self.stream = self.node.create_publisher(FullState, f"/{config['robot']}/cmd_full_state", 1)
@@ -84,6 +85,13 @@ def run_mission(plan, vehicle, config, directory, *, hover=False):
             if len(msg.values)==6:
                 self.record({'event':'actuator_output','timestamp_ms':int(msg.timestamp),'values':dict(zip(
                     ['motor1','motor2','motor3','motor4','gyro_z_deg_s','onboard_yaw_deg'],map(float,msg.values)))})
+        def on_mellinger_control(self, msg):
+            if len(msg.values)==6:
+                self.record({'event':'mellinger_control','timestamp_ms':int(msg.timestamp),
+                             'values':dict(zip(['yaw_command_legacy','gyro_yaw_rad_s',
+                                               'roll_command_legacy','pitch_command_legacy',
+                                               'collective_command_legacy','integrated_z_error_m_s'],
+                                              map(float,msg.values)))})
         def on_yaw_control(self, msg):
             if len(msg.values)==6:
                 self.record({'event':'yaw_control','timestamp_ms':int(msg.timestamp),'values':dict(zip(

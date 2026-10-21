@@ -48,15 +48,15 @@ all:
         - pdg.capActive
         - pdg.requested
         - pdg.commanded
-      yaw_control:
+      mellinger_control:
         frequency: 20
         vars:
-        - controller.yaw
-        - controller.yawRate
-        - pid_attitude.yaw_outP
-        - pid_rate.yaw_outP
-        - stabilizer.yaw
-        - gyro.z
+        - ctrlMel.cmd_yaw
+        - ctrlMel.r_yaw
+        - ctrlMel.cmd_roll
+        - ctrlMel.cmd_pitch
+        - ctrlMel.cmd_thrust
+        - ctrlMel.i_err_z
       mocap_rx_position:
         frequency: 10
         vars:

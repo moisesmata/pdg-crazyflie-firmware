@@ -1,0 +1,47 @@
+{
+  "mission_completed_normally": true,
+  "trajectory_stream_completed": true,
+  "descent_started": true,
+  "height_above_pad_m": 2,
+  "stream_samples": 351,
+  "stream_duration_s": 7.000283258996205,
+  "takeoff_to_disarm_s": 27.72229346899985,
+  "tracking_error_mean_m": 0.031666644519349356,
+  "tracking_error_max_m": 0.04933596314673062,
+  "vertical_tracking_error_min_m": -0.010765156606779847,
+  "final_descent_position_m": [
+    0.028060050681233406,
+    -0.006591827608644962,
+    0.03859260678291321
+  ],
+  "final_descent_horizontal_error_m": 0.02882392470597093,
+  "final_ground_position_m": [
+    0.02267037332057953,
+    -0.01089956983923912,
+    0.005377172026783228
+  ],
+  "final_ground_horizontal_error_m": 0.02515445187585878,
+  "launch_voltage_V": 4.052999973297119,
+  "minimum_logged_voltage_V": 3.424999952316284,
+  "final_motor_commands": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "supervisor_disarm_confirmed": true,
+  "heading_gate_disabled": true,
+  "start_attitude_check": {
+    "wall_monotonic": 54809.425862132,
+    "event": "start_attitude_check",
+    "attitude_error_deg": 4.000167441746554,
+    "tilt_error_deg": 1.3737936553756729,
+    "heading_check_disabled": true,
+    "tilt_limit_deg": 10.0
+  },
+  "operator_observation": "Physically grounded with motors stopped; operator reported this looked really good",
+  "config": "config/pdg-2m-minus1m-direct.yaml",
+  "plan": "output/pdg-2m-minus1m-direct-prepared/plan.json",
+  "physical_landing_confirmed": true,
+  "successful_hardware_baseline": true
+}

@@ -177,3 +177,73 @@ Negative-X hardware trial: `output/pdg-minusx-trial-20261021T103743Z`. Ground po
 
 
 Requested 30-second Mellinger hold at 60 cm: `output/hover-20261021T104518Z`. The new configurable hold passed 41 hover/execution tests, including early recovery during the long hold. Hardware reached its hover, but the unchanged 3.50 V host landing trigger fired at 8.57 seconds after takeoff and 2.56 seconds into hold. Landing/disarming and zero motors were confirmed. This is a threshold-limited run, not evidence that the battery was fully depleted or a completed 30-second hold. Per-motor balance and height results are saved in result.json.
+
+
+## Direct takeoff beneath the negative-X start
+
+Operator requested removing sideways staging after the yaw-logged attempt.
+Use `config/pdg-2p5m-minus1m-direct.yaml` with the same saved plan
+`output/pdg-2p5m-minus1m-prepared/plan.json`. The aircraft starts stationary
+at world XY approximately [-1, 0] on the same level ground plane, nose +X.
+There is no GoTo staging command: 8 s vertical takeoff, 2 s settle/start-state
+check, 7 s PDG descent, and 8 s nominal landing, approximately 25 s total.
+This removes 6 s of translation plus its 2 s settle from the previous 33 s sequence.
+The goal remains the original landing origin; moving the takeoff point must not
+re-zero Tracker, move object axes, or redefine the target. The tracked body
+world Z at rest remains 0.014326675795018673 m in the configuration.
+The plan was independently revalidated against the unchanged model/problem.
+Gains, estimator inputs and controller-trial behavior are unchanged. This saves
+powered time but does not resolve the previously observed yaw/propulsion issue.
+No flight commands were sent during this preparation.
+
+
+## Selected next experiment: 2 m direct start
+
+Operator selected 2 m after the first complete reference stream failed tracking.
+Use `config/pdg-2m-minus1m-direct.yaml` and
+`output/pdg-2m-minus1m-direct-prepared/plan.json`; these supersede the 2.5 m
+configuration for the next trial. The new solve converged in 38 iterations at
+7 s and passed independent nonlinear validation. No flight command was sent
+during preparation. The controller/estimator and direct-start sequence remain
+unchanged: 8 s climb, 2 s settle, 7 s descent, 8 s Land (about 25 s total).
+
+The accepted physical start was captured at world XYZ
+[-0.9899132848, -0.0042951417, 0.0066191938] m with yaw -2.46 degrees, tilt
+4.06 degrees and position variation below 0.53 mm. This is about 1.1 cm from
+planned XY [-1,0]. It is acceptable to mark; do not re-zero Tracker or move the
+landing goal. Only pose tracking was verified for that marking capture; fresh
+onboard telemetry and motor-stop state must be verified after the battery swap.
+Readiness details: `output/setup/pdg-2m-direct-readiness.json`.
+
+
+### 2 m controller trial: heading gate removed
+
+The first 2 m trial settled within 9 mm but was rejected at 10.916 degrees
+full attitude error versus the 10-degree start check; PDG descent never started.
+The subsequent direct-down motion was the commanded fallback Land.
+Operator requested proceeding despite a modest heading offset.
+`config/pdg-2m-minus1m-direct.yaml` now sets `ignore_start_heading: true` and
+`max_start_tilt_deg: 10`. With explicit `--controller-trial`, descent entry compares
+body-Z alignment to the reference and does not gate on yaw. Valid finite unit
+quaternions, freshness, settled position/velocity and ground/supervisor checks
+remain. The override cannot execute without calibrated controller-trial mode.
+Other configurations retain the original full-attitude check. No controller
+gains, trajectory, estimator settings or firmware were changed. Host-only change;
+no radio-server restart is required. Each mission logs `start_attitude_check`.
+
+
+## Next height candidate: 2.75 m direct start
+
+After the successful 2 m baseline, operator requested 2.75 m.
+Prepared `config/pdg-2p75m-minus1m-direct.yaml` and
+`output/pdg-2p75m-minus1m-direct-prepared/plan.json`.
+The start remains world XY [-1,0], goal the original landing origin.
+Controller gains, sensor inputs, heading-free explicit controller-trial profile
+and 8 s takeoff / 2 s settle / 8 s Land timing are unchanged.
+The seven-second descent converged in 11 iterations and passed a fresh
+independent nonlinear rollout. One convex subproblem issued an accuracy warning;
+the accepted final iteration met the strict convergence criteria and independent
+validation passed. This numerical check is not a hardware assurance.
+A fresh operator confirmation of at least 3.1 m overhead clearance was requested
+and remains pending; earlier confirmation covered only 2.8 m. No flight commands
+were sent during preparation. The successful baseline was not overwritten.

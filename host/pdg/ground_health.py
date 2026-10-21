@@ -106,3 +106,20 @@ def validate_calibrated_start_attitude(quaternion_wxyz, reference_wxyz):
     angle=np.rad2deg(2*np.arccos(np.clip(abs(np.dot(q/np.linalg.norm(q),reference/np.linalg.norm(reference))),0,1)))
     if angle>10:
         raise RuntimeError(f'Start attitude differs from calibrated pad by {angle:.1f} degrees; check physical heading and marker identity')
+
+
+def start_attitude_errors(quaternion_wxyz, reference_wxyz):
+    """Return full attitude and body-Z tilt errors in degrees; yaw does not tilt body Z."""
+    normalized=[]
+    for value in (quaternion_wxyz, reference_wxyz):
+        q=np.asarray(value,dtype=float)
+        if q.shape!=(4,) or not np.isfinite(q).all() or abs(np.linalg.norm(q)-1)>.02:
+            raise RuntimeError('Invalid descent-start quaternion')
+        normalized.append(q/np.linalg.norm(q))
+    q,reference=normalized
+    angle=np.rad2deg(2*np.arccos(np.clip(abs(np.dot(q,reference)),0,1)))
+    def body_z(q):
+        w,x,y,z=q
+        return np.array([2*(x*z+w*y),2*(y*z-w*x),1-2*(x*x+y*y)])
+    tilt=np.rad2deg(np.arccos(np.clip(np.dot(body_z(q),body_z(reference)),-1,1)))
+    return float(angle),float(tilt)
