@@ -31,3 +31,9 @@ htmlcov/
 .vscode/
 .idea/
 *~
+
+# Local workstation caches and pinned ROS checkouts.
+.cache/
+.runtime/
+ros_ws/src/
+work/reference-tinympc/

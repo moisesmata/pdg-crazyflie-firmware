@@ -1,0 +1,9 @@
+robot: Crazyflie
+frame_id: world
+operator_confirmed_nose_x_up_z: true
+software_marker_rotation_applied: false
+operator_confirmation: Global X and local X aligned; physical nose points along positive
+  Global X
+confirmed_at_utc: '2026-10-21T08:19:54.253338+00:00'
+ground_report: output/setup/ground-calibration.json
+onboard_ground_check: output/setup/hardware-check.json

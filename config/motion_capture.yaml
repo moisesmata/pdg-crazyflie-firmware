@@ -1,7 +1,7 @@
 /motion_capture_tracking:
   ros__parameters:
     type: vicon
-    hostname: CHANGE_ME_VICON_WORKSTATION
+    hostname: 127.0.0.1
     topics:
       frame_id: world
       poses:

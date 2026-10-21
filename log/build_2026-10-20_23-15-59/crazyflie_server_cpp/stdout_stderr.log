@@ -1,0 +1,96 @@
+-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found rclcpp: 28.1.21 (/opt/ros/jazzy/share/rclcpp/cmake)
+-- Found rosidl_generator_c: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+-- Found rosidl_generator_cpp: 4.6.9 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+-- Found rmw_cyclonedds_cpp: 2.2.3 (/opt/ros/jazzy/share/rmw_cyclonedds_cpp/cmake)
+-- Using RMW implementation 'rmw_cyclonedds_cpp' as default
+-- Found tf2_ros: 0.36.21 (/opt/ros/jazzy/share/tf2_ros/cmake)
+-- Found std_srvs: 5.3.8 (/opt/ros/jazzy/share/std_srvs/cmake)
+-- Found nav_msgs: 5.3.8 (/opt/ros/jazzy/share/nav_msgs/cmake)
+-- Found sensor_msgs: 5.3.8 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+-- Found crazyflie_interfaces: 1.0.7 (/mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_interfaces/share/crazyflie_interfaces/cmake)
+-- Found motion_capture_tracking_interfaces: 1.0.9 (/mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/motion_capture_tracking_interfaces/share/motion_capture_tracking_interfaces/cmake)
+-- Found ros_environment: 4.2.1 (/opt/ros/jazzy/share/ros_environment/cmake)
+-- Configuring done (10.0s)
+-- Generating done (2.4s)
+-- Build files have been written to: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/build/crazyflie_server_cpp
+[ 23%] Built target crazyflieLinkCpp
+gmake[2]: Warning: File 'deps/crazyflie_tools/crazyflie_cpp/CMakeFiles/crazyflie_cpp.dir/compiler_depend.make' has modification time 0.18 s in the future
+[ 26%] Building CXX object deps/crazyflie_tools/crazyflie_cpp/CMakeFiles/crazyflie_cpp.dir/src/Crazyflie.cpp.o
+[ 28%] Building CXX object deps/crazyflie_tools/crazyflie_cpp/CMakeFiles/crazyflie_cpp.dir/src/crtp.cpp.o
+[ 31%] Linking CXX static library libcrazyflie_cpp.a
+gmake[2]: warning:  Clock skew detected.  Your build may be incomplete.
+[ 31%] Built target crazyflie_cpp
+[ 39%] Building CXX object deps/crazyflie_tools/CMakeFiles/comCheck.dir/src/comCheck.cpp.o
+[ 39%] Building CXX object deps/crazyflie_tools/CMakeFiles/battery.dir/src/battery.cpp.o
+[ 39%] Building CXX object deps/crazyflie_tools/CMakeFiles/reboot.dir/src/reboot.cpp.o
+[ 52%] Building CXX object deps/crazyflie_tools/CMakeFiles/listMemories.dir/src/listMemories.cpp.o
+[ 52%] Building CXX object deps/crazyflie_tools/CMakeFiles/scan.dir/src/scan.cpp.o
+[ 52%] Building CXX object deps/crazyflie_tools/CMakeFiles/listLogVariables.dir/src/listLogVariables.cpp.o
+[ 52%] Building CXX object deps/crazyflie_tools/CMakeFiles/downloadUSDLogfile.dir/src/downloadUSDLogfile.cpp.o
+[ 55%] Building CXX object deps/crazyflie_tools/CMakeFiles/version.dir/src/version.cpp.o
+[ 55%] Building CXX object deps/crazyflie_tools/CMakeFiles/console.dir/src/console.cpp.o
+[ 57%] Building CXX object deps/crazyflie_tools/CMakeFiles/listParams.dir/src/listParams.cpp.o
+[ 60%] Building CXX object deps/crazyflie_tools/CMakeFiles/log.dir/src/log.cpp.o
+[ 63%] Building CXX object CMakeFiles/crazyflie_server.dir/src/crazyflie_server.cpp.o
+[ 65%] Linking CXX executable console
+[ 68%] Linking CXX executable scan
+[ 71%] Linking CXX executable listMemories
+[ 73%] Linking CXX executable version
+[ 78%] Linking CXX executable downloadUSDLogfile
+[ 78%] Linking CXX executable listLogVariables
+[ 81%] Linking CXX executable listParams
+[ 84%] Linking CXX executable battery
+[ 86%] Linking CXX executable comCheck
+[ 89%] Linking CXX executable reboot
+[ 89%] Built target scan
+[ 89%] Built target console
+[ 89%] Built target version
+[ 89%] Built target listMemories
+[ 89%] Built target downloadUSDLogfile
+[ 89%] Built target listLogVariables
+[ 89%] Built target listParams
+[ 92%] Linking CXX executable log
+[ 92%] Built target battery
+[ 92%] Built target comCheck
+[ 92%] Built target reboot
+[ 94%] Building CXX object deps/crazyflie_tools/CMakeFiles/setParam.dir/src/setParam.cpp.o
+[ 94%] Built target log
+[ 97%] Linking CXX executable setParam
+[ 97%] Built target setParam
+[100%] Linking CXX executable crazyflie_server
+[100%] Built target crazyflie_server
+-- Install configuration: "Release"
+-- Execute custom install script
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/lib/crazyflie_server_cpp/comCheck
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/lib/crazyflie_server_cpp/scan
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/lib/crazyflie_server_cpp/listParams
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/lib/crazyflie_server_cpp/listLogVariables
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/lib/crazyflie_server_cpp/listMemories
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/lib/crazyflie_server_cpp/reboot
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/lib/crazyflie_server_cpp/battery
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/lib/crazyflie_server_cpp/version
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/lib/crazyflie_server_cpp/console
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/lib/crazyflie_server_cpp/log
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/lib/crazyflie_server_cpp/setParam
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/lib/crazyflie_server_cpp/downloadUSDLogfile
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/lib/crazyflie_server_cpp/crazyflie_server
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/ament_index/resource_index/package_run_dependencies/crazyflie_server_cpp
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/ament_index/resource_index/parent_prefix_path/crazyflie_server_cpp
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/crazyflie_server_cpp/environment/ament_prefix_path.sh
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/crazyflie_server_cpp/environment/ament_prefix_path.dsv
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/crazyflie_server_cpp/environment/path.sh
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/crazyflie_server_cpp/environment/path.dsv
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/crazyflie_server_cpp/local_setup.bash
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/crazyflie_server_cpp/local_setup.sh
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/crazyflie_server_cpp/local_setup.zsh
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/crazyflie_server_cpp/local_setup.dsv
+-- Symlinking: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/crazyflie_server_cpp/package.dsv
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/ament_index/resource_index/packages/crazyflie_server_cpp
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/crazyflie_server_cpp/cmake/crazyflie_server_cppConfig.cmake
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/crazyflie_server_cpp/cmake/crazyflie_server_cppConfig-version.cmake
+-- Up-to-date symlink: /mnt/c/Users/gravitas/Documents/Codex/2026-10-20/ple/moises-experiments/pdg-crazyflie-firmware/ros_ws/install/crazyflie_server_cpp/share/crazyflie_server_cpp/package.xml

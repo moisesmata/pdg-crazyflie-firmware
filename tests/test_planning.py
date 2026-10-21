@@ -5,6 +5,8 @@ import pytest
 from pdg.io import load_problem
 from pdg.planners import SuccessiveConvexification
 from pdg.trajectory import Trajectory
+from pdg.contracts import LandingProblem
+from pdg.model import Quadrotor,rest_state
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -44,3 +46,17 @@ def test_input_guards():
     for fields in [dict(nodes=2),dict(min_time=9),dict(max_speed=float('nan')),
                    dict(initial_state=np.zeros(13)),dict(target_position=np.array([0,0,-1]))]:
         with pytest.raises(ValueError): replace(p,**fields)
+
+
+@pytest.mark.parametrize('weight',[-1,float('nan'),float('inf')])
+def test_invalid_control_smoothing_weight(weight):
+    with pytest.raises(ValueError):SuccessiveConvexification(control_smoothing_weight=weight)
+
+
+def test_control_smoothing_branch_retains_independent_validation():
+    m=Quadrotor();x=rest_state([0,0,.5])
+    p=LandingProblem(initial_state=x,target_position=x[:3],terminal_velocity=(0,0,0),
+                     min_time=1,max_time=3,initial_time=2,nodes=5)
+    plan=SuccessiveConvexification(m,control_smoothing_weight=1.).solve(p)
+    assert plan.converged and plan.diagnostics['validation']['passed']
+    assert plan.diagnostics['control_smoothing_weight']==1.

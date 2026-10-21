@@ -1,0 +1,202 @@
+{
+  "schema_version": 1,
+  "scope": "Configured software settings and hardware observations; physical plant not identified",
+  "frames": {
+    "world": "ENU, z up",
+    "body": "nose +X, +Z up; right-handed",
+    "quaternion": "wxyz; body-to-world rotation",
+    "state": [
+      "px",
+      "py",
+      "pz",
+      "vx",
+      "vy",
+      "vz",
+      "qw",
+      "qx",
+      "qy",
+      "qz",
+      "wx",
+      "wy",
+      "wz"
+    ],
+    "control": [
+      "specific_thrust_m_s2",
+      "tau_x_over_Jx_rad_s2",
+      "tau_y_over_Jy_rad_s2",
+      "tau_z_over_Jz_rad_s2"
+    ],
+    "reference_acceleration": "World kinematic acceleration, gravity excluded"
+  },
+  "planner_vehicle": {
+    "mass": 0.048,
+    "inertia": [
+      1.66e-05,
+      1.67e-05,
+      2.93e-05
+    ],
+    "arm": 0.046,
+    "yaw_coefficient": 0.006,
+    "max_motor_force": 0.12,
+    "gravity": 9.81
+  },
+  "planner_problem": {
+    "initial_state": [
+      -1.0,
+      0.0,
+      2.5143266757950187,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "target_position": [
+      0.0,
+      0.0,
+      0.014326675795018673
+    ],
+    "terminal_velocity": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "min_time": 7.0,
+    "max_time": 12.0,
+    "initial_time": 8.0,
+    "max_tilt_deg": 8.0,
+    "max_speed": 0.55,
+    "max_body_rate": 1.0,
+    "min_specific_thrust": 7.5,
+    "max_specific_thrust": 10.5,
+    "workspace_xy": 1.25,
+    "ceiling": 2.8143266757950185,
+    "nodes": 21,
+    "monotonic_descent": true
+  },
+  "planner_solver": {
+    "algorithm": "SCvx free-final-time FOH",
+    "nodes": 21,
+    "max_iterations": 40,
+    "control_smoothing_weight": 1.0,
+    "tolerance": 0.0005,
+    "virtual_control_tolerance": 1e-06,
+    "node_dynamics_defect_tolerance": 1e-05,
+    "solver": "CLARABEL",
+    "saved_plan": "output/pdg-2p5m-minus1m-prepared/plan.json",
+    "accepted_duration_s": 7.0000000000461275
+  },
+  "mission": {
+    "ground_body_world_z_m": 0.014326675795018673,
+    "landing_frame_start_m": [
+      -1,
+      0,
+      2.5
+    ],
+    "landing_frame_goal_m": [
+      0,
+      0,
+      0
+    ],
+    "ground_start_world_xy_m": [
+      0.01429743506014347,
+      0.0032781411428004503
+    ],
+    "takeoff_s": 8,
+    "settle_after_takeoff_s": 2,
+    "stage_s": 6,
+    "settle_after_stage_s": 2,
+    "descent_s": 7,
+    "land_s": 8,
+    "reference_rate_hz": 50,
+    "initial_staging_yaw_rad": 0,
+    "takeoff_preserves_initial_heading": true,
+    "controller_trial_mode_in_full_hardware_attempt": true
+  },
+  "controller": {
+    "type": "Stock firmware Mellinger wrapped by out-of-tree app; legacy PWM output",
+    "firmware_selection": {
+      "stabilizer.controller": 0,
+      "pdg.controllerId": 6,
+      "pdg.capEnable": 0
+    },
+    "rate_hz": 500,
+    "parameters": {
+      "mass": 0.044,
+      "massThrust": 135456.8069962816,
+      "kp_xy": 0.4,
+      "kd_xy": 0.2,
+      "ki_xy": 0.05,
+      "i_range_xy": 2.0,
+      "kp_z": 1.25,
+      "kd_z": 0.4,
+      "ki_z": 0.05,
+      "i_range_z": 0.4,
+      "kR_xy": 70000,
+      "kw_xy": 20000,
+      "ki_m_xy": 0.0,
+      "i_range_m_xy": 1.0,
+      "kR_z": 60000,
+      "kw_z": 12000,
+      "ki_m_z": 500,
+      "i_range_m_z": 1500.0,
+      "kd_omega_rp": 200
+    },
+    "provenance": "mass and massThrust applied and server-acknowledged; remaining gains are compiled source defaults, not an independent current onboard parameter dump"
+  },
+  "estimator": {
+    "selection": {
+      "stabilizer.estimator": 2,
+      "motion.disable": 1
+    },
+    "inputs": "IMU + Vicon full position and quaternion; Flow and Z-ranger deck absent",
+    "external_position_stddev_m": 0.001,
+    "external_orientation_residual_stddev": 0.05,
+    "external_orientation_noise_note": "Firmware small-angle orientation residual; do not use .05 as noise on each raw quaternion component",
+    "prediction_rate_hz": 100,
+    "nominal_mocap_rate_hz": 120,
+    "mocap_rate_note": "Measured approximately 120-126 Hz, not a fixed delivery guarantee",
+    "source": "crazyflie-firmware/src/modules/src/kalman_core/mm_pose.c"
+  },
+  "plant_unknowns": [
+    "Actual total mass including all five markers and battery",
+    "Actual inertia and center of mass",
+    "Motor/prop thrust and reaction-torque coefficients for this CF 2.1+",
+    "Motor response time and individual efficiencies",
+    "Battery capacity, internal resistance and voltage-under-load model",
+    "Exact end-to-end camera latency and IMU noise identification"
+  ],
+  "reference_runs": {
+    "failed_minus_x_staging": "output/pdg-minusx-trial-20261021T103743Z/mission.jsonl",
+    "failed_minus_x_summary": "output/pdg-minusx-trial-20261021T103743Z/result.json",
+    "latest_shortened_30s_hover": "output/hover-20261021T104518Z/mission.jsonl",
+    "latest_hover_summary": "output/hover-20261021T104518Z/result.json"
+  },
+  "important_limitations": [
+    "No hardware PDG descent stream started; all full attempts stopped during staging",
+    "Host rollout is a numerical feasibility check, not closed-loop control or estimator simulation",
+    "Compiled legacy PWM gains cannot be used directly as physical N*m gains",
+    "Planner rotor-force assumptions and controller massThrust are different models",
+    "The 3.50 V host voltage trigger ended the latest hold; it does not prove battery exhaustion"
+  ],
+  "motor_model_firmware_profile": {
+    "platform": "CF 2.1+ brushed",
+    "force_polynomial_N_in_motor_voltage_V": [
+      -0.02476537915958403,
+      0.06523793527519485,
+      -0.026792504967750107,
+      0.006776789303971145
+    ],
+    "polynomial_order": "constant,linear,quadratic,cubic",
+    "normalized_thrust_max_N": 0.12,
+    "normalized_thrust_min_N": 0.012817578393224994,
+    "profile_thrust_to_torque_m": 0.0069928948992470565,
+    "saturation": "Subtract common excess above 65535 from all battery-compensated commands; apply lower bound",
+    "identified_on_this_aircraft": false
+  }
+}

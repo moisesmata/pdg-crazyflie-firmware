@@ -1,0 +1,20 @@
+enabled: false
+robot: Crazyflie
+frame_id: world
+right_multiply_marker_orientation_xyzw:
+- -0.03143151745628449
+- 0.003144055164048238
+- -0.999302503002525
+- 0.01991688028806809
+validation:
+  independent_pose: nose-down
+  samples: 59
+  uncorrected_median_error_deg: 30.250764394856073
+  corrected_median_error_deg: 2.7667279362451525
+  corrected_max_error_deg: 3.0081172929839504
+  passed: false
+source_fit: output/setup/body-frame-fit.json
+position_correction_applied: false
+invalidated_reason: Operator added marker asymmetry after the saved calibration; refit
+  body frame before flight
+previous_calibration_archive: output/setup/before-marker-change-20261021T074108Z

@@ -35,6 +35,41 @@ def save_plan(path, plan, vehicle, problem):
     path.write_text(json.dumps(payload, indent=2, allow_nan=False)+'\n')
 
 
+def load_validated_plan(path, vehicle, problem):
+    """Reuse an offline plan only for its exact model/problem, with fresh checks."""
+    from .validation import validate_plan
+    data=json.loads(Path(path).read_text())
+    expected_problem={k:np.asarray(v).tolist() if isinstance(v,np.ndarray) else v
+                      for k,v in asdict(problem).items()}
+    # Normalize tuples into JSON arrays before comparing provenance.
+    expected_vehicle=json.loads(json.dumps(asdict(vehicle)))
+    expected_problem=json.loads(json.dumps(expected_problem))
+    if (data.get('schema_version')!=1 or data.get('frame')!='ENU' or
+        data.get('quaternion_order')!='wxyz' or
+        data.get('control_units')!=['m/s^2','rad/s^2','rad/s^2','rad/s^2'] or
+        data.get('vehicle')!=expected_vehicle or data.get('problem')!=expected_problem):
+        raise ValueError('Saved plan does not match the requested model, coordinates, or problem')
+    times=np.asarray(data['times'],dtype=float);states=np.asarray(data['states'],dtype=float)
+    controls=np.asarray(data['controls'],dtype=float);n=len(times)
+    if (n!=problem.nodes or states.shape!=(n,13) or controls.shape!=(n,4) or
+        not all(np.isfinite(x).all() for x in (times,states,controls)) or
+        times.ndim!=1 or times[0]!=0 or np.any(np.diff(times)<=0) or
+        not np.allclose(times,np.linspace(0,times[-1],n),rtol=0,atol=1e-8) or
+        not data.get('converged')):
+        raise ValueError('Invalid saved plan arrays or convergence flag')
+    if np.max(np.abs(states[0]-problem.initial_state))>1e-6:
+        raise ValueError('Saved plan initial state differs from the problem')
+    defects=[np.max(np.abs(states[k+1]-vehicle.step(states[k],controls[k],controls[k+1],times[k+1]-times[k])))
+             for k in range(n-1)]
+    if max(defects)>1e-4:raise ValueError('Saved plan has inconsistent trajectory nodes')
+    plan=Plan(times,states,controls,True,dict(data.get('diagnostics',{})))
+    plan.diagnostics['validation']=validate_plan(vehicle,problem,plan)
+    if not plan.diagnostics['validation']['passed']:
+        raise ValueError('Saved plan failed independent nonlinear validation')
+    plan.diagnostics['loaded_from']=str(Path(path).resolve())
+    return plan
+
+
 def plot_plan(path, plan, vehicle):
     import matplotlib
     matplotlib.use('Agg')

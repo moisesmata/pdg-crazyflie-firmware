@@ -1,0 +1,88 @@
+vehicle:
+  mass: 0.048
+  inertia:
+  - 1.66e-05
+  - 1.67e-05
+  - 2.93e-05
+  arm: 0.046
+  yaw_coefficient: 0.006
+  max_motor_force: 0.12
+  gravity: 9.81
+problem:
+  initial_position:
+  - 1.0
+  - 0.0
+  - 2.5143266757950187
+  initial_velocity:
+  - 0.0
+  - 0.0
+  - 0.0
+  target_position:
+  - 0.0
+  - 0.0
+  - 0.014326675795018673
+  terminal_velocity:
+  - 0.0
+  - 0.0
+  - 0.0
+  nodes: 31
+  min_time: 5.0
+  initial_time: 8.0
+  max_time: 12.0
+  max_tilt_deg: 10.0
+  max_speed: 0.65
+  max_body_rate: 1.0
+  min_specific_thrust: 7.5
+  max_specific_thrust: 10.5
+  ceiling: 2.8143266757950185
+  workspace_xy: 1.25
+execution:
+  robot: Crazyflie
+  frame_id: world
+  rate_hz: 50.0
+  takeoff_duration: 8.0
+  settle_duration: 2.0
+  ground_body_height: 0.014326675795018673
+  max_pose_age: 0.15
+  max_tracking_error: 0.2
+  max_start_error: 0.08
+  touchdown_height_tolerance: 0.025
+  touchdown_speed_tolerance: 0.08
+  min_launch_voltage: 4.0
+  minimum_flight_voltage: 3.5
+  landing_duration: 8.0
+  recovery_landing_duration: 8.0
+  preserve_heading: true
+  vicon_only: true
+  stage_to_start: true
+  staging_duration: 6.0
+  ground_start_xy:
+  - 0.01429743506014347
+  - 0.0032781411428004503
+calibration:
+  model_mass_measured: false
+  mass_source: Effective hover thrust, provisional; see output/setup/pdg-model-candidate.json
+  hardware_commissioned: false
+  purpose: Requested 2.5 m altitude / +1 m X descent to landing origin, with sideways
+    staging
+  ground_position_m:
+  - 0.01429743506014347
+  - 0.0032781411428004503
+  - 0.014326675795018673
+  operator_start_landing_frame_m:
+  - 1.0
+  - 0.0
+  - 2.5
+  operator_goal_landing_frame_m:
+  - 0.0
+  - 0.0
+  - 0.0
+  landing_frame_origin_in_world_m:
+  - 0.0
+  - 0.0
+  - 0.014326675795018673
+  larger_volume_clearance_confirmed: true
+  firmware_tracker_commissioned: false
+  endurance_verified: false
+  planning_mass_basis: Assumed 48 g upper case for rotor-force feasibility, not a
+    scale measurement

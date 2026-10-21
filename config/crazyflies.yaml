@@ -1,10 +1,12 @@
-# Copy/edit URI, initial position, mass and rigid body name for your lab.
 fileversion: 3
 robots:
-  cf1:
+  Crazyflie:
     enabled: true
-    uri: radio://0/80/2M/E7E7E7E701
-    initial_position: [0.0, 0.0, 0.05]
+    uri: radio://0/80/2M/E7E7E7E7E7
+    initial_position:
+    - 0.01429743506014347
+    - 0.0032781411428004503
+    - 0.014326675795018673
     type: cf21
 robot_types:
   cf21:
@@ -24,15 +26,66 @@ all:
       status:
         frequency: 1
     custom_topics:
+      imu:
+        frequency: 10
+        vars:
+        - acc.x
+        - acc.y
+        - acc.z
+      actuators:
+        frequency: 20
+        vars:
+        - motor.m1
+        - motor.m2
+        - motor.m3
+        - motor.m4
+        - gyro.z
+        - stabilizer.yaw
       pdg:
         frequency: 10
-        vars: [pdg.updates, pdg.capActive, pdg.requested, pdg.commanded]
+        vars:
+        - pdg.updates
+        - pdg.capActive
+        - pdg.requested
+        - pdg.commanded
+      yaw_control:
+        frequency: 20
+        vars:
+        - controller.yaw
+        - controller.yawRate
+        - pid_attitude.yaw_outP
+        - pid_rate.yaw_outP
+        - stabilizer.yaw
+        - gyro.z
+      mocap_rx_position:
+        frequency: 10
+        vars:
+        - locSrv.x
+        - locSrv.y
+        - locSrv.z
+        - locSrvZ.tick
+      mocap_rx_orientation:
+        frequency: 10
+        vars:
+        - locSrv.qx
+        - locSrv.qy
+        - locSrv.qz
+        - locSrv.qw
+      vertical_control:
+        frequency: 5
+        vars:
+        - controller.actuatorThrust
+        - posCtl.targetZ
+        - posCtl.targetVZ
+        - stateEstimate.z
+        - stateEstimate.vz
+        - pm.vbat
   firmware_params:
     commander:
       enHighLevel: 1
     stabilizer:
       estimator: 2
-      controller: 0  # auto-select compiled OOT; do NOT set 2 (bypasses our wrapper)
+      controller: 0
     pdg:
       capEnable: 0
       maxCollective: 65535.0

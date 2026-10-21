@@ -1,0 +1,84 @@
+# MELLINGER HOVER CANDIDATE: requires explicit ground tracker configuration.
+vehicle:
+  mass: 0.044
+  inertia:
+  - 1.66e-05
+  - 1.67e-05
+  - 2.93e-05
+  arm: 0.046
+  yaw_coefficient: 0.006
+  max_motor_force: 0.15
+  gravity: 9.81
+problem:
+  initial_position:
+  - 0.0
+  - 0.0
+  - 1.05
+  initial_velocity:
+  - 0.0
+  - 0.0
+  - 0.0
+  target_position:
+  - 0.2
+  - 0.0
+  - 0.05
+  terminal_velocity:
+  - 0.0
+  - 0.0
+  - -0.1
+  nodes: 25
+  min_time: 1.8
+  initial_time: 3.0
+  max_time: 8.0
+  max_tilt_deg: 20.0
+  max_speed: 2.0
+  max_body_rate: 2.0
+  min_specific_thrust: 1.0
+  max_specific_thrust: 18.0
+  ceiling: 2.0
+execution:
+  min_launch_voltage: 4.0
+  minimum_flight_voltage: 3.5
+  robot: Crazyflie
+  frame_id: world
+  rate_hz: 50.0
+  takeoff_duration: 4.0
+  settle_duration: 1.0
+  ground_body_height: 0.014326675795018673
+  max_pose_age: 0.15
+  max_tracking_error: 0.2
+  max_start_error: 0.08
+  touchdown_height_tolerance: 0.025
+  touchdown_speed_tolerance: 0.08
+  preserve_heading: true
+  hover_max_lateral_deviation: 0.3
+  hover_max_vertical_overshoot: 0.2
+  hover_max_tilt_deg: 25.0
+  hover_max_attitude_change_deg: null
+  hover_endpoint_tolerance: 0.2
+  hover_settle_duration: 2.0
+  hover_landing_duration: 8.0
+  start_quaternion_wxyz:
+  - -0.9997762400211347
+  - 0.01649792805208261
+  - -0.004377709597591396
+  - -0.012494955697000898
+  expected_tracker_parameters:
+    ctrlMel.mass: 0.044
+    ctrlMel.massThrust: 135456.8069962816
+calibration:
+  captured_at_utc: '2026-10-21T08:19:22.061394+00:00'
+  ground_position_m:
+  - 0.01429743506014347
+  - 0.0032781411428004503
+  - 0.014326675795018673
+  ground_rpy_deg:
+  - -1.8842509545665398
+  - 0.5251656771508002
+  - 1.423426112924345
+  operator_confirmed_level_surface_and_body_axes: true
+  model_mass_measured: false
+  purpose: Provisional load-matched Mellinger hover commissioning
+  body_frame_correction: null
+  frame_alignment: 'Native Tracker axes: operator aligned nose/local +X with Global
+    +X, local +Z up'

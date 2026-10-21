@@ -12,7 +12,7 @@ Reference implementation: https://github.com/IMRCLab/crazyswarm2 and https://git
 4. Edit `config/crazyflies.yaml`: the real radio URI, robot name, initial rigid-body position, and calibrated logging/settings. The Vicon rigid body name must match `cf1` (or change the robot name consistently).
 5. Edit `config/motion_capture.yaml` hostname. Set Vicon's frame, metre units, body origin and orientation consistently with ENU/body-z-up. `world` is a frame identifier, not a coordinate transformation. A nonmatching system needs an explicit transform adapter before flight.
 6. Match `config/nominal.yaml` to the room and measured vehicle. `ground_body_height` is the tracked body-origin height at actual ground contact, not necessarily zero. All planner coordinates are absolute in the configured frame. `--height X` means rise X above that ground-body height.
-7. Launch `./scripts/launch_crazyswarm.sh`. This launches the server/receiver, not takeoff. Keep exactly one command-producing mission node per vehicle.
+7. Launch `./scripts/launch_crazyswarm.sh`. The project launch explicitly enables `firmware_params.query_all_values_on_connect` so the read-only PDG identity parameters are available to preflight, and starts no joystick teleop. This launches the server/receiver, not takeoff. Keep exactly one command-producing mission node per vehicle.
 8. Observe `/poses`, validate freshness, pose origin/orientation, and robot names before any motor operation. The mission rejects stale, duplicate-source and mismatched-frame observations. Clock synchronization is required.
 
 ## Firmware and flight
@@ -32,3 +32,5 @@ On stale pose, tracking error, or streaming delay, execution requests a best-eff
 Use the same Python minor version as the ROS installation. A practical Jazzy setup is `uv venv --python /usr/bin/python3 --system-site-packages .venv`, source `/opt/ros/jazzy/setup.bash` and the Crazyswarm workspace, then `uv pip install --python .venv/bin/python -e '.[dev]'`. The system-site-packages access is needed for apt-installed rclpy and generated messages. The dependency lock applies to host planning; ROS dependencies are managed by the ROS workspace/rosdep.
 
 The nominal configuration uses a 1.8 s minimum descent time to avoid starting with the shortest physically admissible maneuver. The SCvx solver still optimizes flight time within its configured bounds. Do not infer minimum-time optimality independent of those bounds or a hardware tracking margin from this example.
+
+For the prepared CF 2.1+ brushed / local Windows Vicon workstation, see [local setup](local-setup.md). ROS Jazzy launch_testing requires pytest below 9; the dev dependency is constrained accordingly.

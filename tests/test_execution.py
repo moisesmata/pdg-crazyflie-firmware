@@ -22,6 +22,8 @@ class FakeTransport:
     def arm(self,value):self.events.append(('arm',value))
     def takeoff(self,height,duration):
         self.position[2]=height+(1 if self.wrong_start else 0)
+    def go_to(self,position,quaternion_wxyz,duration):
+        self.events.append(('stage',));self.position=np.asarray(position).copy()
     def send(self,s):
         self.position=s.position.copy()
         if self.stall:self.time+=.1
@@ -37,9 +39,9 @@ def fixture():
     return c['execution'],plan
 
 
-def test_nominal_sequence_releases_stream_before_landing():
+def test_nominal_sequence_queues_landing_before_releasing_stream():
     cfg,p=fixture();t=FakeTransport();Mission(t,cfg).run(p,Quadrotor())
-    assert t.events.index(('release',)) < t.events.index(('land',))
+    assert t.events.index(('land',)) < t.events.index(('release',))
     assert t.events[-1] == ('landed_pose_proxy',)
     assert ('arm',False) in t.events
 
@@ -50,18 +52,92 @@ def test_stale_pose_prevents_arming():
     assert ('arm',True) not in t.events
 
 
-def test_bad_start_requests_landing_without_airborne_disarm():
+def test_bad_start_requests_landing_and_disarms_only_after_fresh_ground():
     cfg,p=fixture();t=FakeTransport(wrong_start=True)
     with pytest.raises(RuntimeError,match='initial state'):Mission(t,cfg).run(p,Quadrotor())
     assert ('land',) in t.events
-    assert ('arm',False) not in t.events
+    assert ('recovered_landed_pose_proxy',) in t.events
+    assert ('arm',False) in t.events
 
 
 def test_streaming_deadline_abort():
     cfg,p=fixture();t=FakeTransport(stall=True)
     with pytest.raises(RuntimeError,match='deadline'):Mission(t,cfg).run(p,Quadrotor())
     assert ('land',) in t.events
+    assert ('recovered_landed_pose_proxy',) in t.events
+
+
+def test_pdg_trial_omits_tracking_abort_but_completes_bounded_landing():
+    cfg,p=fixture();cfg.update(operator_controller_trial=True,vicon_only=True,
+                              expected_tracker_parameters={'ctrlMel.mass':.044},landing_duration=8.)
+    class TrackingOffset(FakeTransport):
+        def send(self,s):
+            super().send(s);self.position[0]+=.3
+        def land(self,height,duration):
+            assert duration==8.;super().land(height,duration)
+    t=TrackingOffset();Mission(t,cfg).run(p,Quadrotor())
+    assert ('descent',) in t.events and ('landed_pose_proxy',) in t.events
+
+
+def test_pdg_trial_still_rejects_unsettled_descent_start():
+    cfg,p=fixture();cfg.update(operator_controller_trial=True,vicon_only=True,
+                              expected_tracker_parameters={'ctrlMel.mass':.044})
+    t=FakeTransport(wrong_start=True)
+    with pytest.raises(RuntimeError,match='planned initial state'):Mission(t,cfg).run(p,Quadrotor())
+    assert ('descent',) not in t.events
+
+
+def test_sideways_staging_precedes_descent_from_actual_ground_pad():
+    cfg,p=fixture();cfg.update(stage_to_start=True,staging_duration=6.,ground_start_xy=[0.,0.])
+    p.states[0,0]=1.
+    t=FakeTransport();Mission(t,cfg).run(p,Quadrotor())
+    assert t.events.index(('takeoff',))<t.events.index(('stage',))<t.events.index(('descent',))
+    assert ('arm',False) in t.events
+
+
+def test_staging_waits_for_vertical_takeoff_before_sideways_command():
+    cfg,p=fixture();cfg.update(stage_to_start=True,ground_start_xy=[0.,0.])
+    p.states[0,0]=1.
+    t=FakeTransport(wrong_start=True)
+    with pytest.raises(RuntimeError,match='before staging'):Mission(t,cfg).run(p,Quadrotor())
+    assert ('stage',) not in t.events
+    assert ('descent',) not in t.events
+    assert ('land',) in t.events
+
+
+def test_staging_failure_does_not_start_streamed_descent():
+    cfg,p=fixture();cfg.update(stage_to_start=True,ground_start_xy=[0.,0.])
+    p.states[0,0]=1.
+    class MissedStage(FakeTransport):
+        def go_to(self,position,quaternion_wxyz,duration):self.events.append(('stage',))
+    t=MissedStage()
+    with pytest.raises(RuntimeError,match='planned initial state'):Mission(t,cfg).run(p,Quadrotor())
+    assert ('descent',) not in t.events
+    assert ('land',) in t.events
+
+
+def test_pdg_recovery_does_not_disarm_on_persistent_tracking_loss():
+    cfg,p=fixture()
+    class Loss(FakeTransport):
+        def takeoff(self,height,duration):
+            super().takeoff(height,duration);self.flight=True
+        def observe(self):
+            if self.flight:raise RuntimeError('Motion capture is stale')
+            return super().observe()
+    t=Loss()
+    with pytest.raises(RuntimeError,match='stale'):Mission(t,cfg).run(p,Quadrotor())
+    assert ('land',) in t.events
+    assert ('recovery_landing_unconfirmed',) in t.events
     assert ('arm',False) not in t.events
+
+
+def test_staging_yaw_uses_cpp_wire_radians_despite_srv_comment():
+    from pdg.ros_mission import fill_go_to_request
+    q=np.array([np.sqrt(.5),0.,0.,np.sqrt(.5)])
+    req=fill_go_to_request(SimpleNamespace(goal=SimpleNamespace()),[1,0,2.5],q)
+    assert req.yaw==pytest.approx(np.pi/2)
+    assert [req.goal.x,req.goal.y,req.goal.z]==[1.,0.,2.5]
+    assert not req.relative
 
 
 def test_ros_message_units_and_quaternion_order():

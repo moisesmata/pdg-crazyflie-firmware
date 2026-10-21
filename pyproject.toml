@@ -9,7 +9,7 @@ description = "Modular Crazyflie PDG firmware app and offboard SCvx experiments"
 requires-python = ">=3.11"
 dependencies = ["numpy>=2.0,<3", "scipy>=1.13,<2", "cvxpy>=1.6,<2", "matplotlib>=3.9,<4", "PyYAML>=6,<7"]
 [project.optional-dependencies]
-dev = ["pytest>=8,<10"]
+dev = ["pytest>=8,<9"]
 [project.scripts]
 pdg = "pdg.cli:main"
 [tool.setuptools.packages.find]

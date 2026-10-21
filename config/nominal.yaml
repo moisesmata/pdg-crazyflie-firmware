@@ -22,7 +22,7 @@ problem:
   max_specific_thrust: 18.0
   ceiling: 2.0
 execution:
-  robot: cf1
+  robot: Crazyflie
   frame_id: world
   rate_hz: 50.0
   takeoff_duration: 3.0

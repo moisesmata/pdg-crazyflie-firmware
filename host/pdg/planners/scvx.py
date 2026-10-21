@@ -11,10 +11,13 @@ from ..model import Quadrotor
 
 
 class SuccessiveConvexification:
-    def __init__(self, vehicle=None, max_iterations=40, tolerance=5e-4):
+    def __init__(self, vehicle=None, max_iterations=40, tolerance=5e-4, control_smoothing_weight=0.):
         self.vehicle = vehicle or Quadrotor()
         self.max_iterations = max_iterations
         self.tolerance = tolerance
+        if not np.isfinite(control_smoothing_weight) or control_smoothing_weight<0:
+            raise ValueError('Control smoothing weight must be finite and nonnegative')
+        self.control_smoothing_weight=float(control_smoothing_weight)
 
     def solve(self, p):
         start = time.perf_counter()
@@ -67,6 +70,8 @@ class SuccessiveConvexification:
             cost = tf + 2e4*cp.norm1(nu) + 0.002*cp.sum_squares(x-xr)
             cost += 0.002*cp.sum_squares(cp.multiply(1/scale_u, u-ur))
             cost += 0.3*cp.square(tf-tr) + 0.01*cp.sum_squares(cp.multiply(1/scale_u, u))
+            if self.control_smoothing_weight:
+                cost += self.control_smoothing_weight*cp.sum_squares(cp.diff(cp.multiply(1/scale_u,u),axis=0))
             prob = cp.Problem(cp.Minimize(cost), constraints)
             prob.solve(solver="CLARABEL", canon_backend="SCIPY", max_iter=200,
                        tol_gap_abs=1e-8, tol_feas=1e-8, tol_gap_rel=1e-8)
@@ -86,6 +91,7 @@ class SuccessiveConvexification:
         from ..validation import validate_plan
         plan = Plan(np.linspace(0, tr, n), xr, ur, converged,
                     dict(model="quadrotor_6dof_constant_mass", algorithm="scvx_free_time_foh",
+                         control_smoothing_weight=self.control_smoothing_weight,
                          history=history, solve_seconds=time.perf_counter()-start))
         plan.diagnostics['validation'] = validate_plan(m, p, plan)
         plan.converged = plan.converged and plan.diagnostics['validation']['passed']

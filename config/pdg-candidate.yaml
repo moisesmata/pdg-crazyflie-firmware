@@ -1,0 +1,69 @@
+# OFFLINE CANDIDATE: tracker and endurance not yet commissioned.
+vehicle:
+  mass: 0.044
+  inertia:
+  - 1.66e-05
+  - 1.67e-05
+  - 2.93e-05
+  arm: 0.046
+  yaw_coefficient: 0.006
+  max_motor_force: 0.12
+  gravity: 9.81
+problem:
+  initial_position:
+  - 0.01429743506014347
+  - 0.0032781411428004503
+  - 0.6143266757950187
+  initial_velocity:
+  - 0.0
+  - 0.0
+  - 0.0
+  target_position:
+  - 0.01429743506014347
+  - 0.0032781411428004503
+  - 0.21432667579501868
+  terminal_velocity:
+  - 0
+  - 0
+  - 0
+  nodes: 25
+  min_time: 2.5
+  initial_time: 3.5
+  max_time: 5.0
+  max_tilt_deg: 10.0
+  max_speed: 0.3
+  max_body_rate: 1.0
+  min_specific_thrust: 7.5
+  max_specific_thrust: 10.5
+  ceiling: 0.8143266757950187
+  workspace_xy: 0.3
+execution:
+  robot: Crazyflie
+  frame_id: world
+  rate_hz: 50.0
+  takeoff_duration: 4.0
+  settle_duration: 2.0
+  ground_body_height: 0.014326675795018673
+  max_pose_age: 0.15
+  max_tracking_error: 0.2
+  max_start_error: 0.08
+  touchdown_height_tolerance: 0.025
+  touchdown_speed_tolerance: 0.08
+  min_launch_voltage: 4.0
+  minimum_flight_voltage: 3.5
+  landing_duration: 8.0
+  recovery_landing_duration: 8.0
+  preserve_heading: true
+  vicon_only: true
+  expected_tracker_parameters:
+    ctrlMel.mass: 0.044
+    ctrlMel.massThrust: 135456.8069962816
+calibration:
+  model_mass_measured: false
+  mass_source: Effective hover thrust, provisional; see output/setup/pdg-model-candidate.json
+  hardware_commissioned: false
+  purpose: Offline short vertical PDG descent candidate, handoff 20 cm above pad
+  ground_position_m:
+  - 0.01429743506014347
+  - 0.0032781411428004503
+  - 0.014326675795018673
