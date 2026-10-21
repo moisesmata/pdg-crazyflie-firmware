@@ -1,0 +1,35 @@
+# Illustrative CF 2.x parameters; identify these on the actual airframe.
+vehicle:
+  mass: 0.032
+  inertia: [0.0000166, 0.0000167, 0.0000293]
+  arm: 0.046
+  yaw_coefficient: 0.006
+  max_motor_force: 0.15
+  gravity: 9.81
+problem:
+  initial_position: [0.0, 0.0, 1.05]
+  initial_velocity: [0.0, 0.0, 0.0]
+  target_position: [0.20, 0.0, 0.05]
+  terminal_velocity: [0.0, 0.0, -0.10]
+  nodes: 25
+  min_time: 1.8
+  initial_time: 3.0
+  max_time: 8.0
+  max_tilt_deg: 20.0
+  max_speed: 2.0
+  max_body_rate: 2.0
+  min_specific_thrust: 1.0
+  max_specific_thrust: 18.0
+  ceiling: 2.0
+execution:
+  robot: cf1
+  frame_id: world
+  rate_hz: 50.0
+  takeoff_duration: 3.0
+  settle_duration: 1.0
+  ground_body_height: 0.05
+  max_pose_age: 0.15
+  max_tracking_error: 0.20
+  max_start_error: 0.08
+  touchdown_height_tolerance: 0.025
+  touchdown_speed_tolerance: 0.08

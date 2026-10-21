@@ -1,0 +1,33 @@
+.venv/
+.tools/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+apps/*/build/
+output/
+ros_ws/build/
+ros_ws/install/
+ros_ws/log/
+.DS_Store
+
+# Kbuild emits some OOT objects alongside the app source.
+*.o
+.*.cmd
+*.o.d
+
+# Other local Python environments and caches.
+venv/
+env/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local credentials and editor state.
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+*~

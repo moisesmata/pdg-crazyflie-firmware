@@ -1,0 +1,41 @@
+# Copy/edit URI, initial position, mass and rigid body name for your lab.
+fileversion: 3
+robots:
+  cf1:
+    enabled: true
+    uri: radio://0/80/2M/E7E7E7E701
+    initial_position: [0.0, 0.0, 0.05]
+    type: cf21
+robot_types:
+  cf21:
+    motion_capture:
+      tracking: vendor
+    big_quad: false
+    battery:
+      voltage_warning: 3.8
+      voltage_critical: 3.7
+all:
+  reference_frame: world
+  firmware_logging:
+    enabled: true
+    default_topics:
+      pose:
+        frequency: 20
+      status:
+        frequency: 1
+    custom_topics:
+      pdg:
+        frequency: 10
+        vars: [pdg.updates, pdg.capActive, pdg.requested, pdg.commanded]
+  firmware_params:
+    commander:
+      enHighLevel: 1
+    stabilizer:
+      estimator: 2
+      controller: 0  # auto-select compiled OOT; do NOT set 2 (bypasses our wrapper)
+    pdg:
+      capEnable: 0
+      maxCollective: 65535.0
+    locSrv:
+      extPosStdDev: 0.001
+      extQuatStdDev: 0.05

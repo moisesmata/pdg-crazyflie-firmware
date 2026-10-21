@@ -1,0 +1,12 @@
+/motion_capture_tracking:
+  ros__parameters:
+    type: vicon
+    hostname: CHANGE_ME_VICON_WORKSTATION
+    topics:
+      frame_id: world
+      poses:
+        qos:
+          mode: sensor
+          deadline: 100.0
+      tf:
+        child_frame_id: '{}_mocap'

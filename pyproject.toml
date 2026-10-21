@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crazyflie-pdg"
+version = "0.1.0"
+description = "Modular Crazyflie PDG firmware app and offboard SCvx experiments"
+requires-python = ">=3.11"
+dependencies = ["numpy>=2.0,<3", "scipy>=1.13,<2", "cvxpy>=1.6,<2", "matplotlib>=3.9,<4", "PyYAML>=6,<7"]
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+[project.scripts]
+pdg = "pdg.cli:main"
+[tool.setuptools.packages.find]
+where = ["host"]
+[tool.pytest.ini_options]
+pythonpath = ["host"]
+testpaths = ["tests"]
