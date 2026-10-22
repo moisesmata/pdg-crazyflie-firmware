@@ -1,0 +1,83 @@
+[
+  {
+    "archive": "rocket-flight-20261022T012222Z",
+    "abort": {
+      "wall_monotonic": 6018.070638901,
+      "event": "abort",
+      "reason": "Battery/status health lost: voltage=3.473 V, status_age=0.003 s; requesting landing"
+    },
+    "reference_samples": 0
+  },
+  {
+    "archive": "rocket-flight-20261022T012632Z",
+    "abort": {
+      "wall_monotonic": 6265.107477359,
+      "event": "abort",
+      "reason": "Battery/status health lost: voltage=3.494 V, status_age=0.011 s; requesting landing"
+    },
+    "reference_samples": 0
+  },
+  {
+    "archive": "rocket-flight-20261022T013517Z",
+    "abort": {
+      "wall_monotonic": 6778.395339855,
+      "event": "abort",
+      "reason": "Tracking-error limit exceeded"
+    },
+    "reference_samples": 633
+  },
+  {
+    "archive": "rocket-flight-20261022T013830Z",
+    "abort": {
+      "wall_monotonic": 6940.444960694,
+      "event": "abort",
+      "reason": "Launch requires a charged battery: at least 4.00 V, measured 3.995 V"
+    },
+    "reference_samples": 0
+  },
+  {
+    "archive": "rocket-flight-20261022T014733Z",
+    "abort": {
+      "wall_monotonic": 7480.028092381,
+      "event": "abort",
+      "reason": "Tracking-error limit exceeded"
+    },
+    "reference_samples": 540
+  },
+  {
+    "archive": "rocket-flight-20261022T015137Z",
+    "abort": {
+      "wall_monotonic": 7703.905683427,
+      "event": "abort",
+      "reason": "Takeoff did not reach planned initial state"
+    },
+    "reference_samples": 0
+  },
+  {
+    "archive": "rocket-retarget-flight-20261022T022137Z",
+    "abort": {
+      "wall_monotonic": 9409.000895055,
+      "event": "abort",
+      "reason": "Onboard estimator telemetry is stale; requesting landing"
+    },
+    "reference_samples": 0
+  },
+  {
+    "archive": "rocket-retarget-flight-20261022T022405Z",
+    "abort": {
+      "wall_monotonic": 9560.904669253,
+      "event": "abort",
+      "reason": "Takeoff did not reach planned initial state"
+    },
+    "reference_samples": 0
+  },
+  {
+    "archive": "rocket-retarget-flight-20261022T022554Z",
+    "abort": {
+      "wall_monotonic": 9664.410475199,
+      "event": "abort",
+      "reason": "Takeoff did not reach planned initial state"
+    },
+    "reference_samples": 0
+  }
+]

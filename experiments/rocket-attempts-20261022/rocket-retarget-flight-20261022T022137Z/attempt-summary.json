@@ -1,0 +1,39 @@
+{
+  "source_run": "output/rocket-retarget-flight-20261022T022137Z",
+  "abort": {
+    "wall_monotonic": 9409.000895055,
+    "event": "abort",
+    "reason": "Onboard estimator telemetry is stale; requesting landing"
+  },
+  "reference_samples": 0,
+  "final_status": {
+    "wall_monotonic": 9408.700395143,
+    "event": "status",
+    "battery_voltage": 3.509999990463257,
+    "supervisor_info": 282,
+    "pm_state": 0,
+    "num_rx_unicast": 696,
+    "num_tx_unicast": 707,
+    "num_rx_broadcast": 120,
+    "num_tx_broadcast": 120,
+    "latency_unicast_ms": 5
+  },
+  "final_actuators": {
+    "wall_monotonic": 9408.72476223,
+    "event": "actuator_output",
+    "timestamp_ms": 1094526,
+    "values": {
+      "motor1": 51692.0,
+      "motor2": 56609.0,
+      "motor3": 52812.0,
+      "motor4": 56271.0,
+      "gyro_z_deg_s": -8.570273399353027,
+      "onboard_yaw_deg": -7.109393119812012
+    }
+  },
+  "start_state_mismatch": null,
+  "recovery_landing_unconfirmed": {
+    "wall_monotonic": 9420.141395699,
+    "event": "recovery_landing_unconfirmed"
+  }
+}

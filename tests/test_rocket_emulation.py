@@ -148,3 +148,66 @@ def test_rocket_attitude_is_not_copied_into_drone_attitude(rocket,mapping):
 def test_invalid_time_rejected_before_integrating(rocket):
     r=deepcopy(rocket);r.burn_time=0
     with pytest.raises(ValueError,match='positive before replay'):validate_result(r)
+
+
+def test_continuation_boundary_conditions_are_independently_checked(rocket,tmp_path):
+    from dataclasses import replace
+    from pdg.rocket.io import solver_config
+    rate=(rocket.controls[:,1]-rocket.controls[:,0])/(rocket.burn_time/(rocket.config.nodes-1))
+    cfg=replace(rocket.config,initial_quaternion=rocket.states[7:11,0].copy(),
+                initial_body_rate=rocket.states[11:14,0].copy(),initial_thrust=rocket.controls[:,0].copy(),
+                initial_thrust_rate=rate)
+    continued=replace(rocket,config=cfg)
+    assert validate_result(continued)['passed']
+    path=tmp_path/'continued.json';save_result(path,continued,'normalized',validate_result(continued))
+    loaded=load_result(path,continued.parameters,cfg,'normalized')
+    assert validate_result(loaded)['passed']
+    for name,value in [('initial_quaternion',np.array([np.cos(.02),np.sin(.02),0.,0.])),
+                       ('initial_body_rate',np.array([.01,0.,0.])),
+                       ('initial_thrust',cfg.initial_thrust+np.array([.01,0.,0.])),
+                       ('initial_thrust_rate',rate+np.array([.01,0.,0.]))]:
+        assert not validate_result(replace(continued,config=replace(cfg,**{name:value})))['passed']
+
+
+def test_older_saved_rocket_plan_remains_loadable(rocket,tmp_path):
+    path=tmp_path/'old.json';save_result(path,rocket,'normalized',validate_result(rocket))
+    value=json.loads(path.read_text())
+    for name in ('initial_quaternion','initial_body_rate','initial_thrust','initial_thrust_rate'):
+        value['solver'].pop(name)
+    path.write_text(json.dumps(value))
+    assert validate_result(load_result(path,rocket.parameters,rocket.config,'normalized'))['passed']
+
+
+def test_composite_rejects_a_position_jump(rocket,mapping):
+    from pdg.rocket.retarget import RetargetEmulation
+    from pdg.rocket.paper_model import MASS,POS,VEL,QUAT,OMEGA
+    first=RocketEmulation(rocket,mapping)
+    cut=.4;state,control=first.replay.at(cut)
+    p=replace(rocket.parameters,ignition_mass=state[MASS])
+    cfg=replace(rocket.config,initial_position=state[POS],initial_velocity=state[VEL],
+                initial_quaternion=state[QUAT],initial_body_rate=state[OMEGA],
+                initial_thrust=control,min_burn_time=.1,initial_burn_time=.6)
+    times=np.linspace(cut,1.,cfg.nodes)
+    states=np.column_stack([first.replay.at(t)[0] for t in times])
+    controls=np.column_stack([first.replay.at(t)[1] for t in times])
+    second_result=SCvxResult(states,controls,.6,0.,[],True,p,cfg)
+    replay=RocketReplay(second_result)
+    second_result.states=np.column_stack([replay.at(t)[0] for t in np.linspace(0,.6,cfg.nodes)])
+    second=RocketEmulation(second_result,mapping,require_settled_start=False)
+    composite=RetargetEmulation(first,second,cut*first.time_scale)
+    assert composite.validation['passed']
+    assert np.linalg.norm(composite.sample(composite.switch_time).position-first.sample(composite.switch_time).position)<1e-6
+    changed=deepcopy(mapping);changed['landing_position_enu_m'][0]+=.1
+    with pytest.raises(ValueError,match='Discontinuous'):
+        RetargetEmulation(first,RocketEmulation(second_result,changed,require_settled_start=False),cut*first.time_scale)
+
+
+def test_versioned_retarget_bundle_loads_without_ignored_local_outputs(monkeypatch,tmp_path):
+    from pdg.rocket import retarget
+    monkeypatch.setattr(retarget,'PREPARED',tmp_path/'absent-local-output')
+    assert retarget.prepared_directory()==retarget.ARCHIVED
+    adapter,config=retarget.load_prepared()
+    assert adapter.validation['passed']
+    assert adapter.plan.states[-1,:2]==pytest.approx([0.,-1.],abs=1e-4)
+    assert adapter.first.core_at(adapter.switch_time)[0][2]-adapter.first.offset[2]==pytest.approx(1.5)
+    assert config['execution']['landing_duration']==3.

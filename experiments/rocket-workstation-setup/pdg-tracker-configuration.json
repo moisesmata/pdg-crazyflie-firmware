@@ -1,0 +1,21 @@
+{
+  "flight_commands_sent": false,
+  "applied": true,
+  "desired": {
+    "ctrlMel.mass": 0.044,
+    "ctrlMel.massThrust": 135456.8069962816,
+    "stabilizer.estimator": 2,
+    "motion.disable": 1,
+    "pdg.capEnable": 0,
+    "stabilizer.controller": 0
+  },
+  "before": {
+    "ctrlMel.mass": 0.028999999165534973,
+    "ctrlMel.massThrust": 132000.0,
+    "stabilizer.estimator": 2,
+    "motion.disable": 1,
+    "pdg.capEnable": 0,
+    "stabilizer.controller": 1
+  },
+  "scope": "Server acknowledged writes and fresh stopped/unarmed state; mass remains provisional, not scale measured"
+}

@@ -162,3 +162,10 @@ flashing, arming, or flight was performed as part of this software change.
 
 Archived successful 2 m hardware runs used the legacy quadrotor planner. They
 are not evidence validating this newly added rocket-emulation backend.
+
+## Versioned hardware evidence
+
+The completed 2.75 m rocket-model run and the full-reference retarget run are
+now archived in `experiments/README.md`, with their distinct landing outcomes.
+Use those measured records rather than the historical preflight-only status
+above when assessing what has actually flown.

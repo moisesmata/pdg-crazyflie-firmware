@@ -34,6 +34,17 @@ def validate_inputs(p,cfg):
     for name in ['initial_position','initial_velocity']:
         a=np.asarray(getattr(cfg,name))
         if a.shape!=(3,) or not np.isfinite(a).all():raise ValueError(f'Invalid rocket {name}')
+    for name,size in [('initial_quaternion',4),('initial_body_rate',3),('initial_thrust',3),('initial_thrust_rate',3)]:
+        value=getattr(cfg,name)
+        if value is not None:
+            a=np.asarray(value)
+            if a.shape!=(size,) or not np.isfinite(a).all():raise ValueError(f'Invalid rocket {name}')
+    if cfg.initial_quaternion is not None and abs(np.linalg.norm(cfg.initial_quaternion)-1)>1e-4:
+        raise ValueError('Initial rocket quaternion must have unit norm')
+    if cfg.initial_thrust_rate is not None and cfg.initial_thrust is None:
+        raise ValueError('Initial thrust rate requires initial thrust')
+    if cfg.free_ignition_time and any(getattr(cfg,k) is not None for k in ['initial_quaternion','initial_body_rate','initial_thrust','initial_thrust_rate']):
+        raise ValueError('Continuation boundary conditions require fixed ignition time')
     if not np.isfinite(cfg.path_margin_fraction) or not 0<=cfg.path_margin_fraction<.5:
         raise ValueError('Invalid rocket path margin fraction')
     if cfg.initial_position[0]<=0:raise ValueError('Rocket starts above target plane in UEN coordinates')
@@ -92,7 +103,7 @@ def validate_result(result,replay=None):
       'initial_mass':abs(float(x[0,MASS]-p.ignition_mass)),
       'initial_position':float(np.linalg.norm(x[0,POS]-initial_position)),
       'initial_velocity':float(np.linalg.norm(x[0,VEL]-initial_velocity)),
-      'initial_body_rate':float(np.linalg.norm(x[0,OMEGA])),
+      'initial_body_rate':float(np.linalg.norm(x[0,OMEGA]-(np.zeros(3) if cfg.initial_body_rate is None else cfg.initial_body_rate))),
       'dry_mass':max(0.,float(p.dry_mass-x[:,MASS].min())),
       'glide_slope':max(0.,float((np.linalg.norm(x[:,2:4],axis=1)/np.tan(np.deg2rad(p.glide_slope_deg))-x[:,1]).max())),
       'tilt_deg':max(0.,float(tilt.max()-p.max_tilt_deg)),
@@ -110,6 +121,13 @@ def validate_result(result,replay=None):
       'burn_time_bounds':max(0.,float(cfg.min_burn_time-result.burn_time),float(result.burn_time-cfg.max_burn_time)),
       'coast_time_bounds':max(0.,float(-coast),float(coast-cfg.max_coast_time)) if cfg.free_ignition_time else abs(float(coast)),
     }
+    if cfg.initial_quaternion is not None:
+        residuals['initial_quaternion']=float(np.linalg.norm(x[0,QUAT]-cfg.initial_quaternion))
+    if cfg.initial_thrust is not None:
+        residuals['initial_thrust']=float(np.linalg.norm(u[0]-cfg.initial_thrust))
+    if cfg.initial_thrust_rate is not None:
+        rate=(result.controls[:,1]-result.controls[:,0])/(result.burn_time/(cfg.nodes-1))
+        residuals['initial_thrust_rate']=float(np.linalg.norm(rate-cfg.initial_thrust_rate))
     tolerances={k:1e-3 for k in residuals}
     for k in ['quaternion_norm','normalized_node_replay_error']:tolerances[k]=1e-4
     terminal_ok=all(np.isfinite(v) and v<=tolerances[k] for k,v in residuals.items())

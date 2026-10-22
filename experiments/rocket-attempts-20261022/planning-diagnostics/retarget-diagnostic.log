@@ -1,0 +1,8 @@
+iter 01 | J= 4715.4775 | tb= 3.704 | tc=-0.000 | ||nu||1= 4.69e-01 | trust= 5.92e+01 |  0.52s
+iter 02 | J= 1083.3466 | tb= 4.847 | tc=-0.000 | ||nu||1= 1.06e-01 | trust= 4.69e+01 |  0.50s
+iter 03 | J=    3.0513 | tb= 6.258 | tc=-0.000 | ||nu||1= 3.26e-13 | trust= 8.89e+00 |  0.51s
+iter 04 | J=   -1.2343 | tb= 6.375 | tc= 0.000 | ||nu||1= 8.24e-14 | trust= 3.10e-01 |  0.54s
+iter 05 | J=   -1.3886 | tb= 6.368 | tc= 0.000 | ||nu||1= 5.48e-13 | trust= 9.81e-04 |  0.51s
+iter 06 | J=   -1.3825 | tb= 6.360 | tc= 0.000 | ||nu||1= 6.79e-07 | trust= 3.17e-04 |  0.68s
+  stopping threshold reached; independent replay rejected candidate, continuing
+FAILED CHECKS: {'body_rate_rad_s': (0.015933294924663666, 0.001)}

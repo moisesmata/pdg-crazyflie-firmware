@@ -1,0 +1,30 @@
+{
+  "source_run": "output/setup",
+  "archived_at_utc": "2026-10-22T02:33:20.097168+00:00",
+  "archive_git_head": "a503d1bd8db550aa493b1abf7d1bf4c9460d0c86",
+  "scope": "Historical setup evidence and recorded settings; not fresh flight authorization",
+  "raw_telemetry": "mission.jsonl.gz: complete original bytes, gzip-compressed",
+  "files_sha256": {
+    "README.md": "48ba429f70a0d5358acbe3815d5d2a5aa7d0c836648eaa8883511c308c844322",
+    "drone-probe.json": "1c570f6b85094ca36e3f402ede06bcbd77d4c603cc3c23da6c9f5fce66e67316",
+    "hardware-check.json": "9bca91a9caa83c73f77f3347fa3257cfff6c254e6c9467dcc90d324358ea58f9",
+    "pdg-tracker-candidate.json": "57547ddb64952b720420c4820f5067f3167d617cf3e733416ecc587055177a8c",
+    "pdg-tracker-configuration.json": "273a040bf1aa1d4cf338a4471645d0a93878e06d536bac406b811b19d9318263",
+    "stream-continuity.json": "b846a9d1d2b2f4f2eabc1f3ccd46f4201d5ca4643e36882289501d0ca3af61c5"
+  },
+  "source_snapshot_sha256_at_archive": {
+    "host/pdg/execution.py": "79465872248b8752db15a36c774cc56ab8468831d10ab322a0c6b888452443c1",
+    "host/pdg/ros_mission.py": "8bb3028eb5ac36409b0b92c82fa4b130e62e81fd53b4165d35322d217385c204",
+    "host/pdg/rocket/paper_model.py": "7afa76f35f9eca1ade7528c428dbe151a99618b7b12e6a019376df6a8e2fba3b",
+    "host/pdg/rocket/paper_scvx.py": "0beb225a9b70ed7ec0647ded5d73b4f1fc47c9e576c0c19e5ad7ca4e53f9ba9f",
+    "host/pdg/rocket/validation.py": "ea92c358ced7646795dd5dad3ff785a1860e59d8313c7a55bb2778fa524b5a9d",
+    "host/pdg/rocket/emulation.py": "7bacab060ce4ee4105248a536ff7402cc55cf252cdf5aeec3624fee4449f638e",
+    "host/pdg/rocket/io.py": "7b523cac42a1a4cacea4d1ef8574ee6985c6bb9d2905264cf68165d513b540e0",
+    "host/pdg/rocket/retarget.py": "f356667031bf9f7e0a50b448288f6b7ee93d393796759f0be02b2bfda9ca3468",
+    "config/crazyflies.yaml": "00ecd52b5194d82179c4ec5f51039e78e03c7aeb6c6675e6bb5ef5db80163877",
+    "config/tracker-frame.yaml": "39dbce1619460e53bc82275ec0afc6550b003ba83d2a94576c58c194e2931d6d",
+    "config/body-frame.yaml": "e13fc4529f6307af5cd40a8212eedfd7f14ed9ef9508d04e1f5b782b4fede924",
+    "apps/pdg_controller/src/pdg_controller.c": "5fb55f03fa9564633d713ab2573d41ea87afda41441bae70aff83cf19114e342"
+  },
+  "source_provenance": "Source hashes describe the current working tree at archive time; HEAD alone excludes uncommitted changes. They do not establish flight-time source identity. Any original flight manifest is preserved separately."
+}

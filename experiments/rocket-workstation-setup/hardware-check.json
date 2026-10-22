@@ -1,0 +1,59 @@
+{
+  "robot": "Crazyflie",
+  "passed": false,
+  "parameters": {
+    "pdg.apiVersion": {
+      "type": 2,
+      "value": 1
+    },
+    "stabilizer.controller": {
+      "type": 2,
+      "value": 1
+    },
+    "pdg.controllerId": {
+      "type": 2,
+      "value": 6
+    },
+    "pdg.capEnable": {
+      "type": 2,
+      "value": 0
+    },
+    "stabilizer.estimator": {
+      "type": 2,
+      "value": 2
+    },
+    "motion.disable": {
+      "type": 2,
+      "value": 1
+    },
+    "deck.bcFlow": {
+      "type": 2,
+      "value": 0
+    },
+    "deck.bcFlow2": {
+      "type": 2,
+      "value": 0
+    },
+    "deck.bcZRanger2": {
+      "type": 2,
+      "value": 0
+    }
+  },
+  "pose": {
+    "frame": "world",
+    "timestamp_s": 1792635929.0079758,
+    "age_s": 0.0016341209411621094,
+    "position_m": [
+      -1.325906753540039,
+      -0.0002905667352024466,
+      0.009871294721961021
+    ],
+    "quaternion_wxyz": [
+      0.9991076588630676,
+      0.009806893765926361,
+      -0.013320826925337315,
+      -0.03886149078607559
+    ]
+  },
+  "error": "Expected verified PDG firmware, project Mellinger/OOT, and disabled capability injection"
+}

@@ -37,3 +37,6 @@ htmlcov/
 .runtime/
 ros_ws/src/
 work/reference-tinympc/
+
+# This workstation reuses the pinned source tree through a directory symlink.
+ros_ws/src

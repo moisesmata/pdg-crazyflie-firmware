@@ -60,8 +60,14 @@ else:
 report=json.loads((ROOT/'output/setup/ground-calibration.json').read_text())
 if not report.get('passed'):raise SystemExit('Ground calibration is not accepted')
 if np.linalg.norm(np.asarray(report['position_m'])-ground)>.01:raise SystemExit('Hover config no longer matches ground capture')
-flash=json.loads((ROOT/'output/setup/flash-result.json').read_text())
-if not flash.get('identity_verified'):raise SystemExit('PDG firmware flash identity has not been verified')
+flash_path=ROOT/'output/setup/flash-result.json'
+flash=json.loads(flash_path.read_text()) if flash_path.exists() else {}
+if not flash.get('identity_verified'):
+    # An existing app need not be reflashed just to create a missing local receipt.
+    # The server must be stopped for the probe; run_mission also checks live identity.
+    from pdg.setup_checks import validate_recent_probe
+    validate_recent_probe(json.loads((ROOT/'output/setup/drone-probe.json').read_text()),
+                          yaml.safe_load((ROOT/'config/crazyflies.yaml').read_text())['robots'][c['robot']]['uri'])
 from pdg.ros_mission import run_mission
 out=ROOT/'output'/('hover-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
 out.mkdir(parents=True,exist_ok=False)

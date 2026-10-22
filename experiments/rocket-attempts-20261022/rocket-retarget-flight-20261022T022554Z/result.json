@@ -1,0 +1,102 @@
+{
+  "mission_directory": "/home/gravitas/workspaces/moises-experiments/pdg/pdg-crazyflie-firmware/output/rocket-retarget-flight-20261022T022554Z",
+  "completed": false,
+  "outcome": "Inverted on ground after takeoff; firmware crash flag present; disarmed and four motor commands zero",
+  "abort": {
+    "wall_monotonic": 9664.410475199,
+    "event": "abort",
+    "reason": "Takeoff did not reach planned initial state"
+  },
+  "start_state_mismatch": {
+    "wall_monotonic": 9664.410442042,
+    "event": "start_state_mismatch",
+    "phase": "takeoff",
+    "position": [
+      -0.483542799949646,
+      -0.05890237167477608,
+      0.01814710535109043
+    ],
+    "velocity": [
+      0.001840212680947844,
+      0.001522305375418754,
+      -0.004855049635799244
+    ],
+    "quaternion_wxyz": [
+      -0.008152468129992485,
+      0.9583288431167603,
+      0.28432518243789673,
+      -0.026429705321788788
+    ],
+    "position_error_m": 2.8878482754525256,
+    "attitude_error_deg": 179.22068897282733,
+    "tilt_error_deg": 177.37488824124614,
+    "heading_check_disabled": false
+  },
+  "reference_samples": 0,
+  "maximum_estimated_body_height_m": 1.156640648841858,
+  "minimum_status_voltage_V": 3.325000047683716,
+  "final_status": {
+    "wall_monotonic": 9665.883653483,
+    "event": "status",
+    "battery_voltage": 3.811000108718872,
+    "supervisor_info": 672,
+    "pm_state": 0,
+    "num_rx_unicast": 681,
+    "num_tx_unicast": 704,
+    "num_rx_broadcast": 120,
+    "num_tx_broadcast": 120,
+    "latency_unicast_ms": 5
+  },
+  "final_onboard_pose": {
+    "wall_monotonic": 9665.875834661,
+    "event": "onboard_pose",
+    "position": [
+      -0.4815325438976288,
+      -0.06121412664651871,
+      0.01795276440680027
+    ],
+    "quaternion_wxyz": [
+      -0.0774911567568779,
+      0.9557809233665466,
+      0.2836729884147644,
+      -0.0027675412129610777
+    ]
+  },
+  "final_external_pose": {
+    "wall_monotonic": 9665.888267245,
+    "event": "external_pose_input",
+    "frame_id": "world",
+    "source_timestamp_s": 1792635968.7163389,
+    "source_age_s": 0.0009937286376953125,
+    "position": [
+      -0.4835469722747803,
+      -0.05889696255326271,
+      0.01815425045788288
+    ],
+    "quaternion_wxyz": [
+      -0.008370437659323215,
+      0.9583383798599243,
+      0.28426387906074524,
+      -0.026675209403038025
+    ]
+  },
+  "final_actuators": {
+    "wall_monotonic": 9665.857932032,
+    "event": "actuator_output",
+    "timestamp_ms": 67540,
+    "values": {
+      "motor1": 0.0,
+      "motor2": 0.0,
+      "motor3": 0.0,
+      "motor4": 0.0,
+      "gyro_z_deg_s": 0.05689627677202225,
+      "onboard_yaw_deg": 32.81700897216797
+    }
+  },
+  "final_arm_confirmation": {
+    "wall_monotonic": 9665.895172608,
+    "event": "supervisor_arm_confirmed",
+    "armed": false,
+    "flags": 672
+  }
+}

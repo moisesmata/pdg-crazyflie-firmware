@@ -1,0 +1,33 @@
+{
+  "flight_commands_sent": false,
+  "seconds": 30.005842882000252,
+  "discovery_seconds": 0.8428418929997861,
+  "passed": true,
+  "streams": {
+    "status": {
+      "samples": 32,
+      "max_gap_s": 0.9668959959999484,
+      "last_age_s": 0.406170151999504,
+      "passed": true
+    },
+    "onboard": {
+      "samples": 645,
+      "max_gap_s": 0.07022781999967265,
+      "last_age_s": 0.03189851800016186,
+      "passed": true
+    },
+    "vicon": {
+      "samples": 3868,
+      "max_gap_s": 0.009343558000182384,
+      "last_age_s": 2.883199977077311e-05,
+      "passed": true
+    },
+    "actuators": {
+      "samples": 646,
+      "max_gap_s": 0.09813359399959154,
+      "last_age_s": 0.0071287450000454555,
+      "passed": true
+    }
+  },
+  "faults": []
+}

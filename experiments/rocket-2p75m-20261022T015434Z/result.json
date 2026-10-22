@@ -1,0 +1,66 @@
+{
+  "mission_directory": "/home/gravitas/workspaces/moises-experiments/pdg/pdg-crazyflie-firmware/output/rocket-flight-20261022T015434Z",
+  "completed": true,
+  "requested_height_above_pad_m": 2.75,
+  "normal_landing_duration_s": 3.0,
+  "host_tracking_error_and_voltage_thresholds_enabled": false,
+  "reference_samples_sent": 671,
+  "last_reference_sample_s": 13.400335434000226,
+  "planned_descent_s": 13.398020076703965,
+  "tracking_error_mean_m": 0.02453387498384764,
+  "tracking_error_max_m": 0.04598382756109299,
+  "minimum_status_voltage_V": 3.499000072479248,
+  "maximum_body_height_m": 2.745634078979492,
+  "takeoff_to_disarm_s": 28.637548780000543,
+  "final_status": {
+    "wall_monotonic": 7889.812121444,
+    "event": "status",
+    "battery_voltage": 3.953000068664551,
+    "supervisor_info": 513,
+    "pm_state": 0,
+    "num_rx_unicast": 727,
+    "num_tx_unicast": 740,
+    "num_rx_broadcast": 120,
+    "num_tx_broadcast": 120,
+    "latency_unicast_ms": 5
+  },
+  "final_onboard_pose": {
+    "wall_monotonic": 7889.803403756,
+    "event": "onboard_pose",
+    "position": [
+      0.019341882318258286,
+      -0.008433252573013306,
+      0.006044724490493536
+    ],
+    "quaternion_wxyz": [
+      0.9999597668647766,
+      0.0013837706064805388,
+      -0.005535082425922155,
+      0.006918853148818016
+    ]
+  },
+  "final_actuators": {
+    "wall_monotonic": 7889.785518442,
+    "event": "actuator_output",
+    "timestamp_ms": 115909,
+    "values": {
+      "motor1": 0.0,
+      "motor2": 0.0,
+      "motor3": 0.0,
+      "motor4": 0.0,
+      "gyro_z_deg_s": 0.21329770982265472,
+      "onboard_yaw_deg": 0.8043566942214966
+    }
+  },
+  "final_arm_confirmation": {
+    "wall_monotonic": 7889.815964207,
+    "event": "supervisor_arm_confirmed",
+    "armed": false,
+    "flags": 513
+  },
+  "landed_pose_proxy": {
+    "wall_monotonic": 7889.815996428,
+    "event": "landed_pose_proxy"
+  },
+  "abort": null
+}

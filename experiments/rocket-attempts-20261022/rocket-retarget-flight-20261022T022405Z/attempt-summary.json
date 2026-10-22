@@ -1,0 +1,60 @@
+{
+  "source_run": "output/rocket-retarget-flight-20261022T022405Z",
+  "abort": {
+    "wall_monotonic": 9560.904669253,
+    "event": "abort",
+    "reason": "Takeoff did not reach planned initial state"
+  },
+  "reference_samples": 0,
+  "final_status": {
+    "wall_monotonic": 9570.93531808,
+    "event": "status",
+    "battery_voltage": 3.7790000438690186,
+    "supervisor_info": 513,
+    "pm_state": 0,
+    "num_rx_unicast": 704,
+    "num_tx_unicast": 714,
+    "num_rx_broadcast": 120,
+    "num_tx_broadcast": 120,
+    "latency_unicast_ms": 4
+  },
+  "final_actuators": {
+    "wall_monotonic": 9570.913425001,
+    "event": "actuator_output",
+    "timestamp_ms": 1263699,
+    "values": {
+      "motor1": 0.0,
+      "motor2": 0.0,
+      "motor3": 0.0,
+      "motor4": 0.0,
+      "gyro_z_deg_s": 0.06016303598880768,
+      "onboard_yaw_deg": -7.43664026260376
+    }
+  },
+  "start_state_mismatch": {
+    "wall_monotonic": 9560.904635111,
+    "event": "start_state_mismatch",
+    "phase": "takeoff",
+    "position": [
+      -1.2614736557006836,
+      -0.02898484654724598,
+      2.759030818939209
+    ],
+    "velocity": [
+      -0.0047658123974245676,
+      0.0033674824043681355,
+      0.0018305769473551318
+    ],
+    "quaternion_wxyz": [
+      0.9987695217132568,
+      0.022026728838682175,
+      -0.023042093962430954,
+      0.03799161687493324
+    ],
+    "position_error_m": 0.11728767317655982,
+    "attitude_error_deg": 5.957937864792537,
+    "tilt_error_deg": 4.051490085375405,
+    "heading_check_disabled": false
+  },
+  "recovery_landing_unconfirmed": null
+}

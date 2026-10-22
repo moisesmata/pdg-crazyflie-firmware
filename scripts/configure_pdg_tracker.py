@@ -10,8 +10,11 @@ import yaml
 ROOT=Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser(description=__doc__)
 p.add_argument('--apply',action='store_true')
+p.add_argument('--candidate',type=Path,help='Explicit reviewed tracker settings; default local candidate, then versioned config')
 a=p.parse_args()
-candidate=json.loads((ROOT/'output/setup/pdg-tracker-candidate.json').read_text())
+candidate_path=a.candidate or ROOT/'output/setup/pdg-tracker-candidate.json'
+if a.candidate is None and not candidate_path.exists():candidate_path=ROOT/'config/pdg-tracker.json'
+candidate=json.loads(candidate_path.read_text())
 desired=candidate['parameters']
 ground=float(yaml.safe_load((ROOT/'config/hover-today.yaml').read_text())['execution']['ground_body_height'])
 print(json.dumps({'apply':a.apply,'parameters':desired,'mass_scale_measured':False,'flight_commands_sent':False},indent=2),flush=True)

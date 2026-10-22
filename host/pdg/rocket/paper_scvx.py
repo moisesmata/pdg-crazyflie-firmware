@@ -52,6 +52,10 @@ class SCvxConfig:
     free_ignition_time: bool = False
     continuous_thrust_inner_bound: bool = True
     path_margin_fraction: float = 0.15
+    initial_quaternion: Array | None = None
+    initial_body_rate: Array | None = None
+    initial_thrust: Array | None = None
+    initial_thrust_rate: Array | None = None
     initial_position: Array = field(
         default_factory=lambda: np.array([5.33, 4.5, 0.0])
     )
@@ -185,7 +189,8 @@ def _straight_line_initialization(
     x0[MASS] = p.ignition_mass
     x0[POS] = cfg.initial_position
     x0[VEL] = cfg.initial_velocity
-    x0[QUAT] = np.array([1.0, 0.0, 0.0, 0.0])
+    x0[QUAT] = np.array([1.0, 0.0, 0.0, 0.0]) if cfg.initial_quaternion is None else cfg.initial_quaternion
+    if cfg.initial_body_rate is not None:x0[OMEGA] = cfg.initial_body_rate
 
     xf = np.zeros(NX)
     xf[MASS] = p.dry_mass
@@ -197,6 +202,7 @@ def _straight_line_initialization(
     controls = np.empty((NU, k_count))
     for k in range(k_count):
         controls[:, k] = -states[MASS, k] * p.gravity
+    if cfg.initial_thrust is not None:controls[:,0] = cfg.initial_thrust
     return states, controls, cfg.initial_burn_time, 0.0
 
 
@@ -312,7 +318,11 @@ def _build_and_solve_subproblem(
     constraints += [x[MASS, 0] == p.ignition_mass]
     constraints += [x[POS, 0] == r_coast + dr_dtc * (tc - tcbar)]
     constraints += [x[VEL, 0] == cfg.initial_velocity + p.gravity * tc]
-    constraints += [x[OMEGA, 0] == 0.0]
+    constraints += [x[OMEGA, 0] == (np.zeros(3) if cfg.initial_body_rate is None else cfg.initial_body_rate)]
+    if cfg.initial_quaternion is not None:constraints += [x[QUAT, 0] == cfg.initial_quaternion]
+    if cfg.initial_thrust is not None:constraints += [u[:, 0] == cfg.initial_thrust]
+    if cfg.initial_thrust_rate is not None:
+        constraints += [u[:,1]-u[:,0] == cfg.initial_thrust_rate*s/(cfg.nodes-1)]
 
     constraints += [x[POS, -1] == 0.0]
     constraints += [x[VEL, -1] == np.array([-p.terminal_descent_speed, 0.0, 0.0])]
@@ -422,6 +432,7 @@ def solve(
     config: SCvxConfig | None = None,
     *,
     verbose: bool = True,
+    initial_guess: SCvxResult | None = None,
 ) -> SCvxResult:
     """Run Algorithm 1 and return the converged trajectory."""
     p0 = parameters or VehicleParameters()
@@ -432,6 +443,15 @@ def solve(
         raise ValueError("At least three temporal nodes are required")
     p = _effective_parameters(p0, cfg.use_aerodynamics)
     xbar, ubar, sbar, tcbar = _straight_line_initialization(p, cfg)
+    if initial_guess is not None:
+        if (initial_guess.states.shape[0]!=NX or initial_guess.controls.shape!=(NU,initial_guess.states.shape[1])
+                or not np.isfinite(initial_guess.states).all() or not np.isfinite(initial_guess.controls).all()
+                or not cfg.min_burn_time<=initial_guess.burn_time<=cfg.max_burn_time):
+            raise ValueError('Invalid rocket optimization initial guess')
+        old=np.linspace(0.,1.,initial_guess.states.shape[1]);new=np.linspace(0.,1.,cfg.nodes)
+        xbar=np.array([np.interp(new,old,row) for row in initial_guess.states])
+        ubar=np.array([np.interp(new,old,row) for row in initial_guess.controls])
+        sbar=float(initial_guess.burn_time);tcbar=float(initial_guess.coast_time)
     history: list[IterationRecord] = []
     converged = False
     d_tau = 1.0 / (cfg.nodes - 1)
@@ -477,7 +497,7 @@ def solve(
                 converged = True
                 break
             if verbose:
-                print('  stopping threshold reached; independent replay rejected candidate, continuing')
+                print('  independent replay failures:',{k:v for k,v in replay_report['residuals'].items() if v>replay_report['tolerances'][k]},flush=True)
 
     propagated = propagate_nonlinear(xbar, ubar, sbar, p, cfg)
     position_errors = np.linalg.norm(propagated[POS] - xbar[POS], axis=0)

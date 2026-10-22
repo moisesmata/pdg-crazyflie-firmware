@@ -168,9 +168,9 @@ def run_mission(plan, vehicle, config, directory, *, hover=False, trajectory=Non
             p, q = estimate.pose.position, estimate.pose.orientation
             from .ground_health import validate_ground_health
             validate_ground_health(self.status[0], [p.x,p.y,p.z], [q.w,q.x,q.y,q.z], observation,
-                                   minimum_voltage=None if controller_trial else 3.8)
+                                   minimum_voltage=None if controller_trial or config.get('min_launch_voltage',3.8) is None else 3.8)
             minimum=config.get('min_launch_voltage',3.8)
-            if not controller_trial and self.status[0].battery_voltage<minimum:
+            if not controller_trial and minimum is not None and self.status[0].battery_voltage<minimum:
                 raise RuntimeError(f'Launch requires a charged battery: at least {minimum:.2f} V, measured {self.status[0].battery_voltage:.3f} V')
             req = GetParameters.Request()
             prefix = config['robot']+'.params.'

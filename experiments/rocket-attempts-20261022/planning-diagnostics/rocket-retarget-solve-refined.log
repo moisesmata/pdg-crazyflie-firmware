@@ -1,0 +1,7 @@
+{"switch_time_s": 7.321589095287749, "switch_position_enu_m": [-0.3071980082081988, 3.7620905745661303e-17, 1.5143266757950895], "new_landing_position_enu_m": [0.0, -1.0, 0.014326675795018673], "continuation_mass": 1.8135030257992248}
+iter 01 | J=   -0.7863 | tb= 6.446 | tc=-0.000 | ||nu||1= 2.24e-13 | trust= 1.21e+00 |  0.62s
+iter 02 | J=   -1.3891 | tb= 6.450 | tc= 0.000 | ||nu||1= 3.08e-14 | trust= 3.12e-03 |  0.58s
+iter 03 | J=   -1.3840 | tb= 6.443 | tc= 0.000 | ||nu||1= 6.79e-07 | trust= 2.82e-04 |  0.70s
+/home/gravitas/workspaces/moises-experiments/pdg/pdg-crazyflie-firmware/.venv/lib/python3.12/site-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+{"validated": true, "duration_s": 20.207661265357576, "switch_time_s": 7.321589095287749, "landing_position_enu_m": [0.0, -1.0, 0.014326675795018673], "execution_requested": false}

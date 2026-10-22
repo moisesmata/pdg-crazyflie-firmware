@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "kind": "two_stage_rocket_retarget",
+  "switch_time_s": 7.321589095287749,
+  "switch_height_above_pad_m": 1.5,
+  "stage1": "stage1-target-plan.json",
+  "stage2": "stage2-target-plan.json",
+  "switch_trigger": "precomputed reference crossing of 1.5 m above pad; not measured-state online replanning"
+}

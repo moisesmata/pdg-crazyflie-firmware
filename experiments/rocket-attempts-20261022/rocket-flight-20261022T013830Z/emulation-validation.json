@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "violations": {
+    "workspace_m": 0.0,
+    "ceiling_m": 0.0,
+    "below_landing_plane_m": 0.0,
+    "speed_m_s": 0.0,
+    "tilt_deg": 0.0,
+    "body_rate_rad_s": 0.0,
+    "specific_thrust_lower_m_s2": 0.0,
+    "specific_thrust_upper_m_s2": 0.0,
+    "motor_force_lower_N": 0.0,
+    "motor_force_upper_N": 0.0,
+    "settled_start_speed_m_s": 0.0
+  },
+  "peaks": {
+    "speed_m_s": 0.2319624026149236,
+    "tilt_deg": 0.3952666486975367,
+    "body_rate_rad_s": 0.008711312561925873,
+    "specific_thrust_min_m_s2": 9.749321320176598,
+    "specific_thrust_max_m_s2": 9.996189394258568,
+    "motor_force_min_N": 0.10724244300615733,
+    "motor_force_max_N": 0.10995833562682351
+  },
+  "samples": 2699,
+  "duration_s": 13.398020076703965,
+  "phase": "powered descent; target coast is not replayed",
+  "scope": "sampled feedforward feasibility for assumed drone model, including finite-difference attitude rates/torques; not a tracking, timing, intersample or robustness guarantee",
+  "emulated_quantities": [
+    "scaled position",
+    "scaled velocity",
+    "scaled kinematic acceleration"
+  ],
+  "non_emulated_quantities": [
+    "rocket mass depletion on physical vehicle",
+    "gimbaled thrust direction relative to rocket body",
+    "rocket attitude/body rates",
+    "rocket aerodynamic environment"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "mission_directory": "/home/gravitas/workspaces/moises-experiments/pdg/pdg-crazyflie-firmware/output/rocket-retarget-flight-20261022T022137Z",
+  "completed": false,
+  "abort": {
+    "wall_monotonic": 9409.000895055,
+    "event": "abort",
+    "reason": "Onboard estimator telemetry is stale; requesting landing"
+  },
+  "start_state_mismatch": null,
+  "rocket_reference_samples": 0,
+  "retarget_stage_reached": false,
+  "planned_switch_time_s": 7.321589095287749,
+  "planned_descent_duration_s": 20.207661265357576,
+  "final_status": {
+    "wall_monotonic": 9408.700395143,
+    "event": "status",
+    "battery_voltage": 3.509999990463257,
+    "supervisor_info": 282,
+    "pm_state": 0,
+    "num_rx_unicast": 696,
+    "num_tx_unicast": 707,
+    "num_rx_broadcast": 120,
+    "num_tx_broadcast": 120,
+    "latency_unicast_ms": 5
+  },
+  "final_onboard_pose": {
+    "wall_monotonic": 9408.739327064,
+    "event": "onboard_pose",
+    "position": [
+      -1.2724809646606445,
+      0.008786490187048912,
+      0.03876500949263573
+    ],
+    "quaternion_wxyz": [
+      0.997839629650116,
+      0.0027675412129610777,
+      -0.020756559446454048,
+      -0.062269676476716995
+    ]
+  },
+  "final_actuators": {
+    "wall_monotonic": 9408.72476223,
+    "event": "actuator_output",
+    "timestamp_ms": 1094526,
+    "values": {
+      "motor1": 51692.0,
+      "motor2": 56609.0,
+      "motor3": 52812.0,
+      "motor4": 56271.0,
+      "gyro_z_deg_s": -8.570273399353027,
+      "onboard_yaw_deg": -7.109393119812012
+    }
+  },
+  "final_arm_confirmation": {
+    "wall_monotonic": 9407.75710783,
+    "event": "supervisor_arm_confirmed",
+    "armed": true,
+    "flags": 522
+  },
+  "recovered_landed_pose_proxy": null,
+  "recovery_landing_unconfirmed": {
+    "wall_monotonic": 9420.141395699,
+    "event": "recovery_landing_unconfirmed"
+  }
+}

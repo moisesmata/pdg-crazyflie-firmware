@@ -199,3 +199,28 @@ def test_heading_gate_override_cannot_silently_enable_outside_trial():
     with pytest.raises(ValueError,match='explicit calibrated controller trial'):
         Mission(t,cfg).run(p,Quadrotor())
     assert ('arm',True) not in t.events
+
+
+@pytest.mark.parametrize('limit,completes',[(.2,False),(None,True)])
+def test_tracking_threshold_can_be_disabled_without_controller_trial(limit,completes):
+    cfg,p=fixture();cfg.update(max_tracking_error=limit,landing_duration=3.)
+    class TrackingOffset(FakeTransport):
+        def send(self,s):
+            super().send(s);self.position[0]+=.3
+        def land(self,height,duration):
+            if completes:assert duration==3.
+            super().land(height,duration)
+    t=TrackingOffset()
+    if completes:
+        Mission(t,cfg).run(p,Quadrotor())
+        assert ('landed_pose_proxy',) in t.events
+    else:
+        with pytest.raises(RuntimeError,match='Tracking-error'):
+            Mission(t,cfg).run(p,Quadrotor())
+
+
+def test_disabled_tracking_threshold_keeps_pose_freshness_check():
+    cfg,p=fixture();cfg['max_tracking_error']=None;t=FakeTransport(stale=True)
+    with pytest.raises(RuntimeError,match='stale'):
+        Mission(t,cfg).run(p,Quadrotor())
+    assert ('arm',True) not in t.events

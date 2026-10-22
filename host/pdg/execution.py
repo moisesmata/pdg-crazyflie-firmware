@@ -35,6 +35,8 @@ class Mission:
         for key in ('rate_hz', 'takeoff_duration', 'settle_duration', 'max_pose_age',
                     'max_tracking_error', 'max_start_error', 'touchdown_height_tolerance',
                     'touchdown_speed_tolerance'):
+            if key == 'max_tracking_error' and config[key] is None:
+                continue  # Explicitly disabled by the mission configuration.
             if not math.isfinite(config[key]) or config[key] <= 0:
                 raise ValueError(f'Invalid execution setting: {key}')
         if not math.isfinite(config['ground_body_height']) or config['ground_body_height'] < 0:
@@ -125,7 +127,8 @@ class Mission:
                 elapsed = self.t.now()-start
                 target = trajectory.sample(elapsed)
                 o = self.check_observation()
-                if not controller_trial and np.linalg.norm(o.position-target.position) > self.c['max_tracking_error']:
+                if (not controller_trial and self.c['max_tracking_error'] is not None
+                        and np.linalg.norm(o.position-target.position) > self.c['max_tracking_error']):
                     raise RuntimeError('Tracking-error limit exceeded')
                 self.t.send(target)
                 self.t.record({'event':'sample','time':elapsed,'position':o.position.tolist(),

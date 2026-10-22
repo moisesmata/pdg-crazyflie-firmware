@@ -26,8 +26,8 @@ def parameters(values):
 
 def solver_config(values):
     values=dict(values)
-    for k in ['initial_position','initial_velocity']:
-        if k in values:values[k]=np.asarray(values[k],float)
+    for k in ['initial_position','initial_velocity','initial_quaternion','initial_body_rate','initial_thrust','initial_thrust_rate']:
+        if k in values and values[k] is not None:values[k]=np.asarray(values[k],float)
     return SCvxConfig(**values)
 
 
@@ -58,7 +58,7 @@ def load_result(path,p,cfg,units):
     # Aero-disabled effective model is part of the saved trajectory provenance.
     if not cfg.use_aerodynamics:expected_p['rho']=0.
     if (d.get('schema_version')!=2 or d.get('kind')!='rocket_pdg_target' or d.get('frame')!='UEN' or
-        d.get('units')!=units or d.get('parameters')!=expected_p or d.get('solver')!=expected_cfg or not d.get('converged')):
+        d.get('units')!=units or d.get('parameters')!=expected_p or plain(asdict(solver_config(d.get('solver',{}))))!=expected_cfg or not d.get('converged')):
         raise ValueError('Saved rocket plan does not match requested target model, units, or solver configuration')
     effective=parameters(d['parameters'])
     r=SCvxResult(np.asarray(d['states'],float),np.asarray(d['controls'],float),float(d['burn_time']),

@@ -1,0 +1,24 @@
+{
+  "robot": "Crazyflie",
+  "frame_id": "world",
+  "rate_hz": 50.0,
+  "takeoff_duration": 8.0,
+  "settle_duration": 2.0,
+  "ground_body_height": 0.014326675795018673,
+  "max_pose_age": 0.15,
+  "max_tracking_error": null,
+  "max_start_error": 0.08,
+  "touchdown_height_tolerance": 0.025,
+  "touchdown_speed_tolerance": 0.08,
+  "min_launch_voltage": null,
+  "minimum_flight_voltage": null,
+  "landing_duration": 3.0,
+  "recovery_landing_duration": 8.0,
+  "vicon_only": true,
+  "preserve_heading": true,
+  "stage_to_start": false,
+  "expected_tracker_parameters": {
+    "ctrlMel.mass": 0.044,
+    "ctrlMel.massThrust": 135456.8069962816
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "scope": "Files hashed after flight; not an independent onboard configuration readback",
+  "sha256": {
+    "host/pdg/execution.py": "79465872248b8752db15a36c774cc56ab8468831d10ab322a0c6b888452443c1",
+    "host/pdg/ros_mission.py": "8bb3028eb5ac36409b0b92c82fa4b130e62e81fd53b4165d35322d217385c204",
+    "config/rocket-lab.yaml": "c4ea88dcaf97fc95c4f4e00956b621d7793660247ccefd0cb232f6dfa0f4d783",
+    "output/rocket-2p75m-prepared/target-plan.json": "f80c4e045e196f497b6c41d65f48a229c177344c9b3d9d1a1c98f13411525cfa"
+  }
+}

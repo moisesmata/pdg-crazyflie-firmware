@@ -1,0 +1,58 @@
+{
+  "mission_directory": "/home/gravitas/workspaces/moises-experiments/pdg/pdg-crazyflie-firmware/output/rocket-flight-20261022T012632Z",
+  "completed": false,
+  "launch_voltage_V": 4.1479997634887695,
+  "rocket_descent_started": false,
+  "abort": {
+    "wall_monotonic": 6265.107477359,
+    "event": "abort",
+    "reason": "Battery/status health lost: voltage=3.494 V, status_age=0.011 s; requesting landing"
+  },
+  "max_body_height_m": 1.9931117296218872,
+  "final_status": {
+    "wall_monotonic": 6275.37144067,
+    "event": "status",
+    "battery_voltage": 3.9579999446868896,
+    "supervisor_info": 513,
+    "pm_state": 0,
+    "num_rx_unicast": 725,
+    "num_tx_unicast": 739,
+    "num_rx_broadcast": 120,
+    "num_tx_broadcast": 120,
+    "latency_unicast_ms": 4
+  },
+  "final_onboard_pose": {
+    "wall_monotonic": 6275.362615762,
+    "event": "onboard_pose",
+    "position": [
+      -0.9938214421272278,
+      -0.009159487672150135,
+      0.010030575096607208
+    ],
+    "quaternion_wxyz": [
+      0.9999913573265076,
+      0.0027675412129610777,
+      -0.0027675412129610777,
+      0.0013837706064805388
+    ]
+  },
+  "final_actuators": {
+    "wall_monotonic": 6275.351555373,
+    "event": "actuator_output",
+    "timestamp_ms": 126324,
+    "values": {
+      "motor1": 0.0,
+      "motor2": 0.0,
+      "motor3": 0.0,
+      "motor4": 0.0,
+      "gyro_z_deg_s": 0.06360016763210297,
+      "onboard_yaw_deg": 0.12089846283197403
+    }
+  },
+  "final_arm_confirmation": {
+    "wall_monotonic": 6275.388995896,
+    "event": "supervisor_arm_confirmed",
+    "armed": false,
+    "flags": 513
+  }
+}

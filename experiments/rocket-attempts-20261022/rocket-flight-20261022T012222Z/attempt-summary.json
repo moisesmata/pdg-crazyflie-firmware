@@ -1,0 +1,36 @@
+{
+  "source_run": "output/rocket-flight-20261022T012222Z",
+  "abort": {
+    "wall_monotonic": 6018.070638901,
+    "event": "abort",
+    "reason": "Battery/status health lost: voltage=3.473 V, status_age=0.003 s; requesting landing"
+  },
+  "reference_samples": 0,
+  "final_status": {
+    "wall_monotonic": 6028.51346479,
+    "event": "status",
+    "battery_voltage": 3.9210000038146973,
+    "supervisor_info": 513,
+    "pm_state": 0,
+    "num_rx_unicast": 679,
+    "num_tx_unicast": 702,
+    "num_rx_broadcast": 120,
+    "num_tx_broadcast": 120,
+    "latency_unicast_ms": 6
+  },
+  "final_actuators": {
+    "wall_monotonic": 6028.483125817,
+    "event": "actuator_output",
+    "timestamp_ms": 234203,
+    "values": {
+      "motor1": 0.0,
+      "motor2": 0.0,
+      "motor3": 0.0,
+      "motor4": 0.0,
+      "gyro_z_deg_s": 0.011262529529631138,
+      "onboard_yaw_deg": 0.22940349578857422
+    }
+  },
+  "start_state_mismatch": null,
+  "recovery_landing_unconfirmed": null
+}

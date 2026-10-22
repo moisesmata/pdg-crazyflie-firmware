@@ -16,6 +16,21 @@ Reynolds & Açıkmeşe (2020). The drone emulates scaled **translation**; its at
 is derived from the force required under Earth gravity. See
 [rocket model, scaling and limitations](docs/rocket-emulation.md).
 
+## Versioned experiment records
+
+[Experiments and outcomes](experiments/README.md) include the completed 2.75 m
+rocket run, the complete retarget reference with its failed touchdown check,
+prior successful legacy runs, and diagnostic failures. Exact plans, execution
+settings, validation and full compressed telemetry are included by `git add .`.
+See [commit and reproduction notes](docs/versioned-experiments.md) for saved-plan
+and tracker-setting fallbacks; general build/output directories remain ignored.
+
+## Prepared workstation launcher
+
+The current workstation has a [rocket runbook](docs/rocket-workstation.md) and
+`bash scripts/rocket.sh` commands for server startup, ground commissioning,
+hover checkout, dry-run review and explicit flight execution.
+
 ## Hardware workstation setup
 
 Run the following from the repository root on the **Linux/Ubuntu/WSL ROS
@@ -107,11 +122,12 @@ correct frames, unarmed supervisor and zero motor commands. These helper scripts
 use the prepared `Crazyflie`/`world` setup; they do not automatically inherit every
 field from `rocket-lab.yaml`.
 
-The current workstation's tracker helper uses the local, ignored
-`output/setup/pdg-tracker-candidate.json`. It must exist and contain reviewed
-settings for this aircraft; it is **not supplied by cloning the repository**.
-Do not copy unknown gains or mass/thrust calibration from another aircraft.
-If that calibration artifact is available:
+The tracker helper prefers the local, ignored
+`output/setup/pdg-tracker-candidate.json` and falls back to the versioned
+`config/pdg-tracker.json` when that file is absent. Both describe this recorded
+aircraft's provisional effective mass and thrust scaling. Review the settings
+for the current aircraft before applying them; do not copy unknown calibration
+from another aircraft.
 
 ```bash
 python scripts/configure_pdg_tracker.py         # Preview parameter changes

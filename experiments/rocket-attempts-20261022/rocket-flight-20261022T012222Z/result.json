@@ -1,0 +1,59 @@
+{
+  "mission_directory": "/home/gravitas/workspaces/moises-experiments/pdg/pdg-crazyflie-firmware/output/rocket-flight-20261022T012222Z",
+  "completed": false,
+  "flight_commands_sent": true,
+  "rocket_descent_started": false,
+  "abort": {
+    "wall_monotonic": 6018.070638901,
+    "event": "abort",
+    "reason": "Battery/status health lost: voltage=3.473 V, status_age=0.003 s; requesting landing"
+  },
+  "final_status": {
+    "wall_monotonic": 6028.51346479,
+    "event": "status",
+    "battery_voltage": 3.9210000038146973,
+    "supervisor_info": 513,
+    "pm_state": 0,
+    "num_rx_unicast": 679,
+    "num_tx_unicast": 702,
+    "num_rx_broadcast": 120,
+    "num_tx_broadcast": 120,
+    "latency_unicast_ms": 6
+  },
+  "final_onboard_pose": {
+    "wall_monotonic": 6028.504470912,
+    "event": "onboard_pose",
+    "position": [
+      -0.9728511571884155,
+      0.001605029683560133,
+      0.008091260679066181
+    ],
+    "quaternion_wxyz": [
+      0.9999913573265076,
+      0.0027675412129610777,
+      -0.0027675412129610777,
+      0.0013837706064805388
+    ]
+  },
+  "final_actuators": {
+    "wall_monotonic": 6028.483125817,
+    "event": "actuator_output",
+    "timestamp_ms": 234203,
+    "values": {
+      "motor1": 0.0,
+      "motor2": 0.0,
+      "motor3": 0.0,
+      "motor4": 0.0,
+      "gyro_z_deg_s": 0.011262529529631138,
+      "onboard_yaw_deg": 0.22940349578857422
+    }
+  },
+  "final_arm_confirmation": {
+    "wall_monotonic": 6028.515304211,
+    "event": "supervisor_arm_confirmed",
+    "armed": false,
+    "flags": 513
+  },
+  "max_observed_body_height_m": 0.473018079996109,
+  "next_action": "Swap in a fully charged serviceable battery; reapply tracker settings after a power cycle and repeat live preflight. No automatic retry."
+}

@@ -1,0 +1,59 @@
+{
+  "uri": "radio://0/80/2M/E7E7E7E7E7",
+  "captured_at_utc": "2026-10-22T02:26:59.462943+00:00",
+  "flight_commands_sent": false,
+  "parameters": {
+    "system.selftestPassed": "1",
+    "firmware.revision0": "2568116300",
+    "firmware.revision1": "34267",
+    "firmware.modified": "0",
+    "pdg.apiVersion": "1",
+    "pdg.controllerId": "6",
+    "pdg.capEnable": "0",
+    "stabilizer.controller": "6",
+    "stabilizer.estimator": "2",
+    "commander.enHighLevel": "0",
+    "deck.bcFlow": "0",
+    "deck.bcFlow2": "0",
+    "deck.bcZRanger2": "0",
+    "motion.disable": "0"
+  },
+  "pdg_identity_present": true,
+  "samples": [
+    {
+      "timestamp_ms": 20822,
+      "pm.vbat": 4.1595306396484375,
+      "stabilizer.roll": 0.07956384122371674,
+      "stabilizer.pitch": 1.8599052429199219,
+      "stabilizer.yaw": -3.0881762504577637
+    },
+    {
+      "timestamp_ms": 21022,
+      "pm.vbat": 4.1595306396484375,
+      "stabilizer.roll": 0.0685424655675888,
+      "stabilizer.pitch": 1.8280099630355835,
+      "stabilizer.yaw": -3.0243139266967773
+    },
+    {
+      "timestamp_ms": 21222,
+      "pm.vbat": 4.1595306396484375,
+      "stabilizer.roll": 0.05194578319787979,
+      "stabilizer.pitch": 1.7993009090423584,
+      "stabilizer.yaw": -2.9598305225372314
+    },
+    {
+      "timestamp_ms": 21422,
+      "pm.vbat": 4.1595306396484375,
+      "stabilizer.roll": 0.040020961314439774,
+      "stabilizer.pitch": 1.7789725065231323,
+      "stabilizer.yaw": -2.8991668224334717
+    },
+    {
+      "timestamp_ms": 21622,
+      "pm.vbat": 4.1595306396484375,
+      "stabilizer.roll": 0.027384817600250244,
+      "stabilizer.pitch": 1.7431329488754272,
+      "stabilizer.yaw": -2.8429059982299805
+    }
+  ]
+}

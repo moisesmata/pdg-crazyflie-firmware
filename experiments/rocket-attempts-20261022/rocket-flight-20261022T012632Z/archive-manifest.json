@@ -1,0 +1,32 @@
+{
+  "source_run": "output/rocket-flight-20261022T012632Z",
+  "archived_at_utc": "2026-10-22T02:33:20.097168+00:00",
+  "archive_git_head": "a503d1bd8db550aa493b1abf7d1bf4c9460d0c86",
+  "scope": "Diagnostic attempt, not a successful mission; preserve actual abort reason",
+  "raw_telemetry": "mission.jsonl.gz: complete original bytes, gzip-compressed",
+  "files_sha256": {
+    "attempt-summary.json": "664d542d4a5ed4de12090bdf395fe56684c91987e045d25e1a4bd5e072cda144",
+    "emulation-validation.json": "3ed196b85beb0e8e8201de8d518772148bc9052b8199970b69b2790ea9564c0b",
+    "execution.json": "924f7c824b8748d7c723a239a6ceeceda6de854e2ac36abc4a8f2f842926378f",
+    "flight-reference.json.gz": "b674b0ec661eeddd57c4ca1cc67f646db75be41dd7255c6e9d8cba0c587c198c",
+    "mission.jsonl.gz": "0718f0a49f7ab816c66419fe4bd3777aab4e10a97ccc0eadcb54cc321ed011bc",
+    "result.json": "f6d14299291640a7892a719597ce9ab2ec42265782af0c6d7d47ea7bd2c75244",
+    "target-plan.json": "0f89e31e364064388bda990b8e2b4e7f60e545e67d5ceeabf5b8b1f658b946f6",
+    "target-validation.json": "c0a38f74224622f9ccf82b4d7f22532bb1087fcb11605f0aaf4b47ae0bdeedbb"
+  },
+  "source_snapshot_sha256_at_archive": {
+    "host/pdg/execution.py": "79465872248b8752db15a36c774cc56ab8468831d10ab322a0c6b888452443c1",
+    "host/pdg/ros_mission.py": "8bb3028eb5ac36409b0b92c82fa4b130e62e81fd53b4165d35322d217385c204",
+    "host/pdg/rocket/paper_model.py": "7afa76f35f9eca1ade7528c428dbe151a99618b7b12e6a019376df6a8e2fba3b",
+    "host/pdg/rocket/paper_scvx.py": "0beb225a9b70ed7ec0647ded5d73b4f1fc47c9e576c0c19e5ad7ca4e53f9ba9f",
+    "host/pdg/rocket/validation.py": "ea92c358ced7646795dd5dad3ff785a1860e59d8313c7a55bb2778fa524b5a9d",
+    "host/pdg/rocket/emulation.py": "7bacab060ce4ee4105248a536ff7402cc55cf252cdf5aeec3624fee4449f638e",
+    "host/pdg/rocket/io.py": "7b523cac42a1a4cacea4d1ef8574ee6985c6bb9d2905264cf68165d513b540e0",
+    "host/pdg/rocket/retarget.py": "f356667031bf9f7e0a50b448288f6b7ee93d393796759f0be02b2bfda9ca3468",
+    "config/crazyflies.yaml": "00ecd52b5194d82179c4ec5f51039e78e03c7aeb6c6675e6bb5ef5db80163877",
+    "config/tracker-frame.yaml": "39dbce1619460e53bc82275ec0afc6550b003ba83d2a94576c58c194e2931d6d",
+    "config/body-frame.yaml": "e13fc4529f6307af5cd40a8212eedfd7f14ed9ef9508d04e1f5b782b4fede924",
+    "apps/pdg_controller/src/pdg_controller.c": "5fb55f03fa9564633d713ab2573d41ea87afda41441bae70aff83cf19114e342"
+  },
+  "source_provenance": "Source hashes describe the current working tree at archive time; HEAD alone excludes uncommitted changes. They do not establish flight-time source identity. Any original flight manifest is preserved separately."
+}

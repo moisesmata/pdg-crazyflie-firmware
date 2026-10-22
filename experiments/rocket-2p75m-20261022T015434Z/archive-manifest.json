@@ -1,0 +1,36 @@
+{
+  "source_run": "output/rocket-flight-20261022T015434Z",
+  "archived_at_utc": "2026-10-22T02:33:20.097168+00:00",
+  "archive_git_head": "a503d1bd8db550aa493b1abf7d1bf4c9460d0c86",
+  "scope": "Curated hardware record; outcome and limitations in README.md and result.json",
+  "raw_telemetry": "mission.jsonl.gz: complete original bytes, gzip-compressed",
+  "files_sha256": {
+    "README.md": "20e44578ab02d7ac4c6ddef03d991c658368b6746530c3723e16cff1da131fa0",
+    "config.yaml": "c4ea88dcaf97fc95c4f4e00956b621d7793660247ccefd0cb232f6dfa0f4d783",
+    "emulation-validation.json": "bd596845660e2cbea4fe03fb874c03248b38eb5ed2cb50aa9ee0897a7d681860",
+    "execution.json": "f85c53968b3ecd3c61f2a1e054ed3ae0c0d378ebefc70b8b2d987fc1fb920ced",
+    "flight-reference.json": "bea5f406e339a252106acfc79ae4204ace315cac534c6898b5f814f8b2d35a14",
+    "lab-reference.png": "d9700697ac572cca233eb4273b7d0856e01f6a79bff2b9c746ea89d2141de900",
+    "manifest.json": "5cb338358e4108c726c200450bd2e8e47bf6d66f80b7bf0f90aa3f0c9942d49e",
+    "mission.jsonl.gz": "7f9f0b9a585105b42038dff635bd2de1259079e30526d96bd82e158bd22fafbc",
+    "result.json": "237fc28e34e60713e70c1a655b398c88fbf2febc7c9dc4e7530ee0183c99f089",
+    "target-plan.json": "f80c4e045e196f497b6c41d65f48a229c177344c9b3d9d1a1c98f13411525cfa",
+    "target-trajectory.png": "eb2d4d5f51e0fff73feb0e02b5319803254ed742f51b03291696f2eef338e8bf",
+    "target-validation.json": "c0a38f74224622f9ccf82b4d7f22532bb1087fcb11605f0aaf4b47ae0bdeedbb"
+  },
+  "source_snapshot_sha256_at_archive": {
+    "host/pdg/execution.py": "79465872248b8752db15a36c774cc56ab8468831d10ab322a0c6b888452443c1",
+    "host/pdg/ros_mission.py": "8bb3028eb5ac36409b0b92c82fa4b130e62e81fd53b4165d35322d217385c204",
+    "host/pdg/rocket/paper_model.py": "7afa76f35f9eca1ade7528c428dbe151a99618b7b12e6a019376df6a8e2fba3b",
+    "host/pdg/rocket/paper_scvx.py": "0beb225a9b70ed7ec0647ded5d73b4f1fc47c9e576c0c19e5ad7ca4e53f9ba9f",
+    "host/pdg/rocket/validation.py": "ea92c358ced7646795dd5dad3ff785a1860e59d8313c7a55bb2778fa524b5a9d",
+    "host/pdg/rocket/emulation.py": "7bacab060ce4ee4105248a536ff7402cc55cf252cdf5aeec3624fee4449f638e",
+    "host/pdg/rocket/io.py": "7b523cac42a1a4cacea4d1ef8574ee6985c6bb9d2905264cf68165d513b540e0",
+    "host/pdg/rocket/retarget.py": "f356667031bf9f7e0a50b448288f6b7ee93d393796759f0be02b2bfda9ca3468",
+    "config/crazyflies.yaml": "00ecd52b5194d82179c4ec5f51039e78e03c7aeb6c6675e6bb5ef5db80163877",
+    "config/tracker-frame.yaml": "39dbce1619460e53bc82275ec0afc6550b003ba83d2a94576c58c194e2931d6d",
+    "config/body-frame.yaml": "e13fc4529f6307af5cd40a8212eedfd7f14ed9ef9508d04e1f5b782b4fede924",
+    "apps/pdg_controller/src/pdg_controller.c": "5fb55f03fa9564633d713ab2573d41ea87afda41441bae70aff83cf19114e342"
+  },
+  "source_provenance": "Source hashes describe the current working tree at archive time; HEAD alone excludes uncommitted changes. They do not establish flight-time source identity. Any original flight manifest is preserved separately."
+}

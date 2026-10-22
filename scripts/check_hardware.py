@@ -17,10 +17,10 @@ from pdg.ground_health import validate_ground_health, validate_controller_parame
 
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--wait',type=float,default=5.,help='Seconds to wait for server startup and telemetry')
-parser.add_argument('--controller-id',type=int,choices=(1,6),default=6,help='Expected PID baseline (1) or project Mellinger (6/auto)')
+parser.add_argument('--controller-id',type=int,choices=(1,6),default=None,help='Expected PID baseline (1) or project Mellinger (6/auto)')
 parser.add_argument('--vicon-only',action='store_true',help='Also require Kalman, disabled flow and Flow/Z-ranger deck absent')
 args=parser.parse_args()
-if args.vicon_only:args.controller_id=1
+if args.controller_id is None:args.controller_id=1 if args.vicon_only else 6
 root = Path(__file__).resolve().parents[1]
 config = yaml.safe_load((root/'config/nominal.yaml').read_text())['execution']
 rclpy.init()

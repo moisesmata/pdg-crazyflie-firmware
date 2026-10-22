@@ -1,0 +1,16 @@
+{
+  "parameters": {
+    "ctrlMel.mass": 0.044,
+    "ctrlMel.massThrust": 135456.8069962816,
+    "stabilizer.estimator": 2,
+    "motion.disable": 1,
+    "pdg.capEnable": 0,
+    "stabilizer.controller": 0
+  },
+  "provenance": {
+    "source": "experiments/pdg-2m-direct-baseline/mission.jsonl; docs/pdg-simulation-parameters.json",
+    "scope": "Restore recorded mass/feedforward and Vicon-only controller selections; leave all gains unchanged. Not a new aircraft identification.",
+    "operator_confirmed_same_aircraft_tracking_pad_and_clear_route": true
+  },
+  "mass_scale_measured": false
+}

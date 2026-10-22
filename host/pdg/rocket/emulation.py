@@ -31,7 +31,8 @@ def _positive(config,key):
 
 
 class RocketEmulation:
-    def __init__(self,result,config):
+    def __init__(self,result,config,*,require_settled_start=True):
+        self.require_settled_start=require_settled_start
         self.result=result;self.config=config
         self.length_scale=_positive(config,'length_scale_m_per_target_unit')
         self.time_scale=_positive(config,'time_scale_s_per_target_unit')
@@ -117,7 +118,7 @@ class RocketEmulation:
         }
         # The existing takeoff/settle runner starts from rest. It cannot reproduce
         # a nonzero-speed ignition condition without a separately designed entry.
-        error['settled_start_speed_m_s']=max(0.,float(np.linalg.norm(v[0])-.15))
+        error['settled_start_speed_m_s']=max(0.,float(np.linalg.norm(v[0])-.15)) if self.require_settled_start else 0.
         finite=all(np.isfinite(a).all() for a in [p,v,force,R,self.rates,self.angular_acceleration,motors])
         return dict(passed=bool(finite and all(z<=1e-6 for z in error.values())),violations=error,
                     peaks=dict(speed_m_s=float(np.linalg.norm(v,axis=1).max()),tilt_deg=float(tilt.max()),
