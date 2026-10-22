@@ -1,0 +1,88 @@
+# Virtual rocket planning, followed by scaled translational emulation.
+# This example uses declared normalized target units, NOT measured rocket data.
+planner:
+  model: rocket_6dof
+rocket:
+  units: normalized
+  vehicle:
+    gravity: [-1.0, 0.0, 0.0]  # target UEN frame: up, east, north
+    rho: 0.0
+    reference_area: 1.0
+    aero_coefficients: [[0.05, 0, 0], [0, 0.5, 0], [0, 0, 0.5]]
+    inertia: [[0.00336, 0, 0], [0, 0.168, 0], [0, 0, 0.168]]
+    thrust_arm: [-0.25, 0.0, 0.0]
+    center_of_pressure: [0.05, 0.0, 0.0]
+    isp: 30.0
+    g0: 1.0  # normalized reference acceleration, consistent with target units
+    dry_mass: 1.0
+    ignition_mass: 2.0
+    thrust_min: 1.5
+    thrust_max: 6.5
+    max_gimbal_deg: 20.0
+    max_tilt_deg: 60.0
+    max_angular_rate_deg: 28.6
+    glide_slope_deg: 75.0
+    trigger_speed: 2.0
+    max_angle_of_attack_deg: 3.0
+    terminal_descent_speed: 0.1
+  solver:
+    nodes: 20
+    max_iterations: 70
+    initial_burn_time: 5.0
+    min_burn_time: 2.0
+    max_burn_time: 8.0
+    initial_position: [5.33, 2.665, 0.0]
+    initial_velocity: [0.0, 0.0, 0.0]
+    use_aerodynamics: false
+    use_state_trigger: false
+    free_ignition_time: false
+    virtual_control_tolerance: 0.000001
+    trust_region_weight: 0.5
+    trust_region_tolerance: 0.0005
+    continuous_thrust_inner_bound: true
+    path_margin_fraction: 0.15
+emulation:
+  length_scale_m_per_target_unit: 0.375234521576
+  time_scale_s_per_target_unit: 2.0
+  world_yaw_deg: 180.0
+  drone_heading_deg: 0.0
+  landing_position_enu_m: [0.0, 0.0, 0.014326675795018673]
+  validation_rate_hz: 200.0
+  limits:
+    max_speed_m_s: 0.55
+    max_tilt_deg: 8.0
+    max_body_rate_rad_s: 1.0
+    max_specific_thrust_m_s2: 10.5
+    min_specific_thrust_m_s2: 2.0
+    workspace_xy_m: 1.25
+    ceiling_m: 2.6
+    motor_reserve_fraction: 0.05
+  drone:
+    mass: 0.044  # assumed effective mass; not an independent mass measurement
+    inertia: [0.0000166, 0.0000167, 0.0000293]
+    arm: 0.046
+    yaw_coefficient: 0.006
+    max_motor_force: 0.12  # nominal model; requires vehicle identification
+    gravity: 9.81
+execution:
+  robot: Crazyflie
+  frame_id: world
+  rate_hz: 50.0
+  takeoff_duration: 8.0
+  settle_duration: 2.0
+  ground_body_height: 0.014326675795018673
+  max_pose_age: 0.15
+  max_tracking_error: 0.20
+  max_start_error: 0.08
+  touchdown_height_tolerance: 0.025
+  touchdown_speed_tolerance: 0.08
+  min_launch_voltage: 4.0
+  minimum_flight_voltage: 3.5
+  landing_duration: 8.0
+  recovery_landing_duration: 8.0
+  vicon_only: true
+  preserve_heading: true
+  stage_to_start: false
+  expected_tracker_parameters:
+    ctrlMel.mass: 0.044
+    ctrlMel.massThrust: 135456.8069962816

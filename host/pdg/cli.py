@@ -6,9 +6,9 @@ from .planners import SuccessiveConvexification
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Crazyflie offboard PDG; simulation is the default')
+    parser = argparse.ArgumentParser(description='Virtual rocket PDG with scaled Crazyflie translation; flight requires mission --execute')
     parser.add_argument('command', choices=['plan', 'simulate', 'mission'])
-    parser.add_argument('--config', default='config/nominal.yaml')
+    parser.add_argument('--config', default='config/rocket-emulation.yaml')
     parser.add_argument('--height', type=float, help='Takeoff rise above configured ground-body height [m]')
     parser.add_argument('--output', default='output/nominal')
     parser.add_argument('--execute', action='store_true', help='Publish actual ROS flight commands (mission only)')
@@ -21,6 +21,13 @@ def main():
     if args.plan_file and args.command!='mission':parser.error('--plan-file is only valid with mission')
     if args.plan_file and args.control_smoothing:parser.error('--control-smoothing applies to fresh solves, not --plan-file')
     if args.controller_trial and args.command!='mission':parser.error('--controller-trial is only valid with mission')
+    import yaml
+    selected = yaml.safe_load(Path(args.config).read_text())
+    if selected.get('planner', {}).get('model') == 'rocket_6dof':
+        from .rocket.cli import run
+        return run(args)
+    if selected.get('planner', {}).get('model') not in (None, 'quadrotor_6dof'):
+        parser.error('Unknown planner.model')
     vehicle, problem, config = load_problem(args.config, args.height)
     config['execution']['operator_controller_trial']=args.controller_trial
     from .ground_health import validate_controller_trial_mode

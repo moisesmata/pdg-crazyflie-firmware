@@ -2,6 +2,7 @@
 
 - Bitcraze `crazyflie-firmware`: https://github.com/bitcraze/crazyflie-firmware, pinned at `9912584c85db92dbbba14334ffed20ebabba463e`. Preserved as a Git submodule; its source and bundled components retain their own license notices. Our app wraps stock Mellinger, not a copied/reimplemented controller.
 - A2R-Lab `tinympc-crazyflie`: https://github.com/A2R-Lab/tinympc-crazyflie. Architectural inspiration for a separate app and upstream firmware dependency. TinyMPC and Eigen are not required or included by our app.
+- Szmuk, Reynolds & Açıkmeşe (2020): https://doi.org/10.2514/1.G004549. Rocket dynamics and SCvx reference for the default target model; implementation adapted from the existing local paper implementation, as described in [rocket-emulation.md](rocket-emulation.md). This is not the authors' released software.
 - Szmuk & Acikmese (2018): https://arxiv.org/abs/1802.03827. Algorithmic reference for free-time SCvx, FOH discretization, virtual control and trust terms. See `algorithm.md` for every substantive model/transcription difference.
 - Crazyswarm2: https://github.com/IMRCLab/crazyswarm2. ROS interface and flight services. Our ROS transport is a small client of its documented messages/services. `ros.repos` records the inspected revision.
 - Motion capture tracking: https://github.com/IMRCLab/motion_capture_tracking/tree/ros2. Native Vicon path. Our repository does not redistribute the proprietary Vicon runtime/SDK or tracking software.

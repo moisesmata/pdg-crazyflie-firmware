@@ -1,4 +1,8 @@
-# SCvx baseline and relationship to the paper
+# Legacy quadrotor SCvx baseline
+
+The default backend is now the [2020 rocket model with translational drone emulation](rocket-emulation.md). This page describes the preserved quadrotor backend selected by legacy configurations such as `config/nominal.yaml`.
+
+## Relationship to the 2018 paper
 
 Reference: M. Szmuk and B. Acikmese, *Successive Convexification for 6-DoF Mars Rocket Powered Landing with Free-Final-Time*, AIAA 2018, https://arxiv.org/abs/1802.03827.
 

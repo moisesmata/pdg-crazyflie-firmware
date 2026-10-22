@@ -24,7 +24,7 @@ def fill_go_to_request(req, position, quaternion_wxyz):
     return req
 
 
-def run_mission(plan, vehicle, config, directory, *, hover=False):
+def run_mission(plan, vehicle, config, directory, *, hover=False, trajectory=None):
     from .ground_health import validate_controller_trial_mode
     controller_trial=validate_controller_trial_mode(config,hover=hover)
     try:
@@ -259,7 +259,7 @@ def run_mission(plan, vehicle, config, directory, *, hover=False):
             from .hover import HoverMission
             HoverMission(transport, config).run(plan, vehicle)
         else:
-            Mission(transport, config).run(plan, vehicle)
+            Mission(transport, config).run(plan, vehicle, trajectory=trajectory)
     finally:
         if transport:
             transport.log.close();transport.node.destroy_node()

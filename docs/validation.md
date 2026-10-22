@@ -1,3 +1,32 @@
+# Rocket-emulation validation — 2026-10-21
+
+Development checks on macOS, using a temporary Python environment. No firmware
+was flashed and no hardware mission was executed.
+
+- Default `pdg plan`: 34 SCvx iterations; independent target replay passed.
+  Target burn time 6.6990 normalized time units; terminal position residual
+  0.000168 target length units; normalized maximum node replay defect 8.95e-05.
+- Mapping: 2 m rise above the pad body-origin plane and about 1 m lateral travel;
+  13.398 s lab descent, peak speed 0.2320 m/s, peak drone tilt 0.3953 degrees,
+  specific thrust 9.7493–9.9962 m/s². All declared mapped nominal limits passed
+  across 2,699 grid samples. Motor feasibility uses assumed parameters.
+- These are nonlinear target-replay and reference-feasibility checks, not a
+  closed-loop tracking experiment, formal certificate, or real-time benchmark.
+- Saved-target mission dry run passed; an intentionally over-tight mapped speed
+  limit was rejected before the ROS path.
+- Regression suite: 132 tests passed, including 10 new rocket model/scaling/
+  provenance/mission tests. The full
+  suite retains a pre-existing failure in `test_heading_packets.py` because this
+  checkout lacks the pinned ROS workspace's `crazyflie_cpp/crtp.h`. That test also
+  failed before this change. Firmware source/submodule and archived flights were
+  not changed.
+
+See [rocket-emulation.md](rocket-emulation.md) for commands, scaling and scope.
+The following historical checks concern the **legacy quadrotor backend**. Use
+an explicit legacy config to reproduce them now that the CLI default is rocket PDG.
+
+---
+
 # Development validation — 2026-10-20
 
 Local environment: macOS Apple Silicon, Python 3.12.13, xPack Arm GCC 14.2.1-1.1. These are development checks, not flight qualification.

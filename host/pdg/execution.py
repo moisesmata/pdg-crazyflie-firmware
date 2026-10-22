@@ -54,7 +54,7 @@ class Mission:
             self.t.wait(min(0.02, end-self.t.now()))
             self.check_observation()
 
-    def run(self, plan, vehicle):
+    def run(self, plan, vehicle, *, trajectory=None):
         from .ground_health import validate_controller_trial_mode
         controller_trial=validate_controller_trial_mode(self.c,hover=False)
         ignore_heading=self.c.get('ignore_start_heading',False)
@@ -63,7 +63,10 @@ class Mission:
         tilt_limit=float(self.c.get('max_start_tilt_deg',10.))
         if not math.isfinite(tilt_limit) or not 0<tilt_limit<=30:
             raise ValueError('Invalid descent-start tilt limit')
-        trajectory = Trajectory(plan, vehicle)
+        if trajectory is None:
+            trajectory = Trajectory(plan, vehicle)
+        elif not plan.converged or not getattr(trajectory, 'validation', {}).get('passed', False):
+            raise ValueError('External reference requires passed independent emulation validation')
         airborne = False
         landing_requested=False
         landing_duration=float(self.c.get('landing_duration',2.))
@@ -127,6 +130,8 @@ class Mission:
                 self.t.send(target)
                 self.t.record({'event':'sample','time':elapsed,'position':o.position.tolist(),
                                'reference':target.position.tolist()})
+                if hasattr(trajectory, 'diagnostic_sample'):
+                    self.t.record(trajectory.diagnostic_sample(elapsed, o))
                 if elapsed >= plan.times[-1]: break
                 tick += 1
                 remaining = tick/self.c['rate_hz']-(self.t.now()-start)
